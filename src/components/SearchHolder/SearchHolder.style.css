@@ -1,0 +1,181 @@
+nav {
+  height: 4em;
+  display: flex;
+  justify-content: space-evenly;
+  padding: 1em;
+  align-items: center;
+}
+
+.burger-menu {
+  height: 1rem;
+  width: 4em;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  cursor: pointer;
+  display: none;
+}
+
+.burger-bar {
+  width: 1.3em;
+  height: 0.13em;
+  background-color: #010101;
+  border-radius: 0.5em;
+}
+
+.menu {
+  width: 100%;
+  height: 100vh;
+  background-color: red;
+  position: absolute;
+  top: 0;
+  z-index: -1;
+}
+
+.hidden {
+  display: none;
+}
+
+.visible {
+  display: inherit;
+}
+
+.burger-bar.clicked:nth-child(1) {
+  transform: rotate(45deg) translate(-0.34em, 0.17em);
+  transition: ease-out 0.5s;
+}
+
+.burger-bar.clicked:nth-child(2) {
+  transform: scale(0.1);
+  transition: ease-out 0.5s;
+}
+
+.burger-bar.clicked:nth-child(3) {
+  transform: rotate(135deg) translate(-0.5em, 1em);
+  transition: ease-out 0.5s;
+}
+
+/* unclicked */
+.burger-bar.unclicked {
+  transform: rotate(0) translate(0);
+  transition: cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.5s;
+}
+
+.logo-cont {
+  width: 10rem;
+}
+
+.logo {
+  max-width: 100%;
+  cursor: pointer;
+}
+
+.input-holder {
+  flex-basis: 55%;
+  padding: 2rem;
+  height: 2.75rem;
+  display: flex;
+  flex-direction: row;
+}
+
+.input-field {
+  height: 100%;
+  width: 100%;
+  padding: 0 15px 1px;
+  border: none;
+  background: transparent;
+  line-height: normal;
+  color: #010101;
+  outline: #d72029;
+  border: 0.02px solid #d72029;
+}
+
+.select {
+  height: 107%;
+  border-bottom: 0.02px solid #d72029;
+  border-top: 0.02px solid #d72029;
+  border-right: 0.02px solid #d72029;
+  border-left: none;
+  outline: #d72029;
+  -webkit-appearance: red;
+  font-family: "Noto Sans";
+  text-align: center;
+}
+
+.search-submit {
+    width: 3.2rem;
+    height: 107%;
+    color: #fff;
+    background: #d72029;
+    border-radius: 0 3px 3px 0;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-right: .5px solid ;
+}
+
+.links {
+   
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-basis: 10%;
+}
+.mere {
+    font-family: "Noto Sans";
+    font-weight: 400;
+    text-transform: capitalize;
+    font-size: .8rem;
+    color: #d72029;
+    transform: translateY(1rem);
+}
+
+
+.account {
+    font-family: "Noto Sans";
+    font-weight: 600;
+    text-transform: capitalize;
+    font-size: .89rem;
+    cursor: pointer;
+}
+
+.cart {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    position: relative;
+    border-left: .1px solid #d72029;
+    flex-basis: 13%;
+}
+
+.cart-state-holder {
+    display: flex;
+    flex-direction: row;
+}
+
+.cart-state {
+    height: 1.2rem;
+    width: 1.2rem;
+    background-color: #d72029;
+    border-radius: 50%;
+    text-align: center;
+    font-family: "Noto Sans";
+    font-weight: 600;
+    text-transform: capitalize;
+    color: #fff;
+    transform: translateX(1.6rem);
+    margin-bottom: 4rem;
+    font-size: .9rem;
+    position: absolute;
+} 
+
+.icon--cart {
+    height: 2rem;
+    width: 2rem;
+}

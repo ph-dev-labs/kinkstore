@@ -1,0 +1,42 @@
+.announcement-bar {
+  background: #ffffff;
+  border-bottom: 0.0625rem solid #d72029; /* 1px converted to rem */
+  width: 100vw;
+}
+
+.announcement-bar__inner {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.announcement-bar__content {
+  width: 60%;
+  text-align: center;
+  font-family: "Noto Sans";
+  font-weight: 600;
+  color: #d72029;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.announcement-bar__button {
+  background-color: #d72029;
+  color: #fff;
+  box-shadow: 0 0.0625rem #d72029; /* 1px converted to rem */
+  display: inline-block;
+  margin-right: 0.75rem; /* 12px converted to rem */
+  vertical-align: text-bottom;
+  padding: 0.4375rem 1.125rem 0.4375rem 0.9375rem; /* 7px 18px 7px 15px converted to rem */
+  border: none;
+  font-family: "Noto Sans";
+  font-weight: 400;
+}
+
+svg {
+  width: 1.25rem; /* 20px converted to rem */
+  height: 1.0625rem; /* 17px converted to rem */
+  margin-right: 0.75rem; /* 12px converted to rem */
+  vertical-align: text-bottom;
+}
