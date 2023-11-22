@@ -30,7 +30,7 @@ const SearchHolder = () => {
           <img src={Logo} className="logo" alt="Logo" />
         </div>
         <div className="input-holder">
-          <input className="input-field" />
+          <input className="input-field" placeholder="search..." />
           <label for="select-product-type"></label>
           <select id="select-product-type" className="select">
             <option value selected={true}>

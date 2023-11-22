@@ -1,9 +1,11 @@
 nav {
   height: 4em;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   padding: 1em;
   align-items: center;
+  max-width: 100%;
+
 }
 
 .burger-menu {
@@ -89,6 +91,7 @@ nav {
   color: #010101;
   outline: #d72029;
   border: 0.02px solid #d72029;
+  border-radius: .1rem;
 }
 
 .select {
@@ -101,6 +104,9 @@ nav {
   -webkit-appearance: red;
   font-family: "Noto Sans";
   text-align: center;
+  color: #677279;;
+  text-transform: capitalize;
+  font-size: .9rem;
 }
 
 .search-submit {
@@ -147,16 +153,17 @@ nav {
 .cart {
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: center;
     position: relative;
     border-left: .1px solid #d72029;
-    flex-basis: 13%;
+    flex-basis: 12%;
 }
 
 .cart-state-holder {
     display: flex;
     flex-direction: row;
+    padding: .5rem;
 }
 
 .cart-state {
@@ -173,6 +180,7 @@ nav {
     margin-bottom: 4rem;
     font-size: .9rem;
     position: absolute;
+    
 } 
 
 .icon--cart {
