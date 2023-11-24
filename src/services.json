@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "serviceHeading": "Free Shipping Over $69",
+    "serviceRendered": "Free shipping available in the continental U.S."
+  },
+  {
+    "id": 2,
+    "serviceHeading": "Discreet Packaging",
+    "serviceRendered": "We ship in plain brown boxes and manila envelopes. There is no Kink branding on the outside of the box or on the shipping label."
+  },
+  {
+    "id": 3,
+    "serviceHeading": "Real Human Customer Support",
+    "serviceRendered": "help@kinkstore.com#415-573-9414"
+  },
+  {
+    "id": 4,
+    "serviceHeading": "Secure Billing & Payments",
+    "serviceRendered": "Authorize.net trusted merchant%Visa Partner"
+  }
+]

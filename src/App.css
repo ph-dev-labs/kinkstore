@@ -1,8 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Overpass:wght@400;700&display=swap');
+
 .App {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-size: 100%;
+  font-family: 'Overpass', sans-serif;
 }
 
 div {
