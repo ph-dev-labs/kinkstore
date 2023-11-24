@@ -4,26 +4,28 @@ import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import { useGetCategoryQuery } from "../redux/api/api";
 
 export default function () {
+  const data = useGetCategoryQuery();
   return (
     <>
-    <HeaderText>
-    <p>Free shipping Over $69 for US | Discreet Shipping and Billing</p>
-  </HeaderText>
-    <Navbar>
-      <MainHeader>
-        <section className="left">
-          <Menu />
-          <Logo src="/images/ADS-1.png" />
-        </section>
-        <section className="right">
-          <Search />
-          <Profile />
-          <Cart />
-        </section>
-      </MainHeader>
-    </Navbar>
+      <HeaderText>
+        <p>Free shipping Over $69 for US | Discreet Shipping and Billing</p>
+      </HeaderText>
+      <Navbar>
+        <MainHeader>
+          <section className="left">
+            <Menu />
+            <Logo src="/images/ADS-1.png" />
+          </section>
+          <section className="right">
+            <Search />
+            <Profile />
+            <Cart />
+          </section>
+        </MainHeader>
+      </Navbar>
     </>
   );
 }
@@ -61,7 +63,7 @@ const MainHeader = styled.section`
   padding: 1rem;
   position: sticky;
   left: 0;
-  right:0;
+  right: 0;
   section.left {
     display: flex;
     color: inherit;
@@ -81,9 +83,18 @@ const Logo = styled.img`
   max-width: 100px;
   height: 40px;
   object-fit: cover;
+  cursor: pointer;
 `;
 
-const Menu = styled(MenuIcon)``;
-const Search = styled(SearchIcon)``;
-const Profile = styled(PersonOutlineIcon)``;
-const Cart = styled(ShoppingCartOutlinedIcon)``;
+const Menu = styled(MenuIcon)`
+  cursor: pointer;
+`;
+const Search = styled(SearchIcon)`
+  cursor: pointer;
+`;
+const Profile = styled(PersonOutlineIcon)`
+  cursor: pointer;
+`;
+const Cart = styled(ShoppingCartOutlinedIcon)`
+  cursor: pointer;
+`;

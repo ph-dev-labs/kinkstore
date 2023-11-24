@@ -2,14 +2,12 @@ import './App.css';
 import Annoucement from './components/Announcement/Annoucement';
 import SearchHolder from './components/SearchHolder/SearchHolder';
 import DropNav from './components/DropDownNav/DropNav';
-import Navbar from './components/Header'
-import Main from './components/Main'
+import Home from './components/Home.jsx'
 
 function App() {
   return (
     <div className="App">
-      <Navbar />
-      <Main />
+      <Home />
     </div>
   );
 }
