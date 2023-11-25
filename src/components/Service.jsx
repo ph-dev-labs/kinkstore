@@ -14,7 +14,6 @@ function Service({
   extra,
   index,
 }) {
-  console.log(`id: ${index}`);
   return (
     <Container>
       <ServiceImageContainer>
