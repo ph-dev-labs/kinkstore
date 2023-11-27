@@ -59,9 +59,16 @@ export const kinkApi = createApi({
        
       }),
     }),
-    getProduct: builder.query({
+    getProductByCollection: builder.query({
       query: () => ({
-        url: "/products",
+        url: "/products-by-collection",
+        method: "GET",
+       
+      }),
+    }),
+    getProductBestSelling: builder.query({
+      query: () => ({
+        url: "/products-by-best_selling",
         method: "GET",
        
       }),
@@ -77,5 +84,6 @@ export const {
   useGetCategoryQuery,
   useResetPasswordOtpMutation,
   useResetPasswordMutation,
-  useGetProductQuery
+  useGetProductByCollectionQuery,
+  useGetProductBestSellingQuery
 } = kinkApi;

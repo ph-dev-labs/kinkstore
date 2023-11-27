@@ -5,21 +5,23 @@ import Product from "./CollectionProducts";
 import { useMediaQuery } from "react-responsive";
 import AliceCarousel from "react-alice-carousel";
 import "react-alice-carousel/lib/alice-carousel.css";
-import { useGetCategoryQuery } from "../redux/api/api";
+import { useGetProductByCollectionQuery } from "../redux/api/api";
 
 function Collection() {
-  const items = [
-    <Product src="/images/K-3.png" title="Anal" />,
-    <Product src="/images/K-3.png" title="Leather" />,
-    <Product src="/images/K-3.png" title="Machine sex" />,
-    <Product src="/images/K-3.png" title="Anal hook" />,
-    <Product src="/images/K-3.png" title="Anal hook" />,
-    <Product src="/images/K-3.png" title="Anal hook" />,
-  ];
+
+  const {data, isLoading, isError} = useGetProductByCollectionQuery()
+  
+
+  const items = data?.map((product) => {
+    const {id, category, picture} = product
+    return (
+      <Product key={id} src={picture} title={category} />
+
+    )
+  })
 
   //configuation options for slider.
-  const products = useGetCategoryQuery();
-  console.log(products);
+;
   const options = {
     disableButtonsControls: true,
     disableDotsControls: true,
