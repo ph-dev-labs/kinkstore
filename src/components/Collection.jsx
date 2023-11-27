@@ -1,44 +1,43 @@
 import React from "react";
 import styled from "styled-components";
 import FlexBetween from "./FlexBetween";
-import Product from "./Product";
+import Product from "./CollectionProducts";
 import { useMediaQuery } from "react-responsive";
 import AliceCarousel from "react-alice-carousel";
 import "react-alice-carousel/lib/alice-carousel.css";
-
-const responsive = {
-  0: {
-    items: 1,
-    // itemsFit: "contain",
-  },
-  568: {
-    items: 3,
-  },
-  1024: {
-    items: 4,
-    itemsFit: "contain",
-  },
-};
-
-const options = {
-  disableButtonsControls: true,
-  disableDotsControls: true,
-  disableSlideInfo: true,
-  responsive: {
-    items: 2,
-  }
-};
-
-const items = [
-  <Product src="" title="Anal" />,
-  <Product src="" title="Leather" />,
-  <Product src="" title="Machine sex" />,
-  <Product src="" title="Anal hook" />,
-];
+import { useGetCategoryQuery } from "../redux/api/api";
 
 function Collection() {
-  const isBigScreen = useMediaQuery({ query: "(min-width: 1824px)" });
-  console.log(isBigScreen);
+  const items = [
+    <Product src="/images/K-3.png" title="Anal" />,
+    <Product src="/images/K-3.png" title="Leather" />,
+    <Product src="/images/K-3.png" title="Machine sex" />,
+    <Product src="/images/K-3.png" title="Anal hook" />,
+    <Product src="/images/K-3.png" title="Anal hook" />,
+    <Product src="/images/K-3.png" title="Anal hook" />,
+  ];
+
+  //configuation options for slider.
+  const products = useGetCategoryQuery();
+  console.log(products);
+  const options = {
+    disableButtonsControls: true,
+    disableDotsControls: true,
+    disableSlideInfo: true,
+    mouseTracking: true,
+    responsive: {
+      0: {
+        items: 2,
+      },
+      1024: {
+        items: 6,
+      },
+    },
+  };
+
+  const breakPoint = useMediaQuery({ query: "(max-width: 999px)" });
+
+  console.log(`breakPoint: ${breakPoint}`);
 
   return (
     <Container>
@@ -46,9 +45,9 @@ function Collection() {
         <p>Our collections</p>
         <ViewAll>View all</ViewAll>
       </FlexBetween>
-      {/* <ProductGallery> */}
-        <AliceCarousel items={items} responsive={responsive} {...options} />
-      {/* </ProductGallery> */}
+      <ProductGallery>
+        <AliceCarousel items={items} {...options} />
+      </ProductGallery>
     </Container>
   );
 }
@@ -56,10 +55,10 @@ function Collection() {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  // background: black;
-  p {
+
+  div > p {
     font-weight: bold;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
   }
 `;
 const ViewAll = styled.button`
@@ -67,7 +66,8 @@ const ViewAll = styled.button`
   background: transparent;
   color: rgba(255, 0, 0, 0.8);
   font-weight: bold;
-  font-size: 1rem;
+  font-size: 0.8rem;
+  cursor: pointer;
 `;
 
 const ProductGallery = styled.div`
