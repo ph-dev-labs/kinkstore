@@ -39,7 +39,7 @@ function Collection() {
 
   const breakPoint = useMediaQuery({ query: "(max-width: 999px)" });
 
-  console.log(`breakPoint: ${breakPoint}`);
+  // console.log(`breakPoint: ${breakPoint}`);
 
   return (
     <Container>
