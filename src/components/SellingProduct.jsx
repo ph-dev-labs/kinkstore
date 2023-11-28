@@ -10,8 +10,8 @@ function SellingProducts({ src, title, price }) {
       <ImgContainer>
         <ProductImage src={src} />
       </ImgContainer>
-        <p>{title}</p>
-        <span>${price}</span>
+      <p>{title}</p>
+      <span>${price}</span>
       <Button>Choose option</Button>
     </Container>
   );
@@ -19,7 +19,7 @@ function SellingProducts({ src, title, price }) {
 
 const Container = styled.div`
   max-width: ${(props) => (props.breakPoint ? "49%" : "24%")};
-  height: auto;
+  height: 574.95px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -45,7 +45,7 @@ const ImgContainer = styled.div`
   justify-content: center;
   align-items: center;
   width: 90%;
-  height: 100%;
+  height: 344.25px;
   object-fit: cover;
   object-position: center;
   padding: 0.5rem;
@@ -73,7 +73,5 @@ const Button = styled.button`
   border-radius: 0.2rem;
   cursor: pointer;
 `;
-
-
 
 export default SellingProducts;
