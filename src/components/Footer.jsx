@@ -25,7 +25,7 @@ const Container = styled.div`
   align-items: center;
   width: 100%;
   background: #f3f5f6;
-  padding: 1rem;
+
 
   p {
     color: #677279;
