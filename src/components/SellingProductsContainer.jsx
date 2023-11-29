@@ -8,9 +8,7 @@ function SellingProductsContainer() {
   const { data, isLoading, isError } = useGetProductBestSellingQuery();
   const breakPoint = useMediaQuery({ query: "(max-width: 999px)" });
 
-  if (data) {
-    console.log(data);
-  }
+  
 
   return (
     <Container breakPoint={breakPoint}>

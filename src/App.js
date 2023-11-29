@@ -1,13 +1,16 @@
 import './App.css';
-import Annoucement from './components/Announcement/Annoucement';
-import SearchHolder from './components/SearchHolder/SearchHolder';
-import DropNav from './components/DropDownNav/DropNav';
+import {Routes, Route,} from "react-router-dom"
 import Home from './components/Home.jsx'
+import CategoryProduct from './components/CategoryProduct.jsx';
+
 
 function App() {
   return (
     <div className="App">
-      <Home />
+      <Routes>
+        <Route path="/" element={<Home />}/>
+        <Route path="category/:categoryId" element={<CategoryProduct />} />
+      </Routes>
     </div>
   );
 }

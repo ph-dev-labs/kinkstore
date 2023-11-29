@@ -73,6 +73,12 @@ export const kinkApi = createApi({
        
       }),
     }),
+    getCategoriesProduct: builder.query({
+      query: (categoryId) => ({
+        url: `/related-category/${categoryId}`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
@@ -85,5 +91,6 @@ export const {
   useResetPasswordOtpMutation,
   useResetPasswordMutation,
   useGetProductByCollectionQuery,
-  useGetProductBestSellingQuery
+  useGetProductBestSellingQuery,
+  useGetCategoriesProductQuery
 } = kinkApi;

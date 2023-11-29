@@ -56,7 +56,7 @@ const ProductImage = styled.img`
   height: 100%;
   object-fit: cover;
   object-position: center;
-  // padding: 0.5rem;
+
 `;
 
 const Button = styled.button`
@@ -66,7 +66,7 @@ const Button = styled.button`
   outline: none;
   font-weight: bold;
   font-size: 1.1rem;
-  padding: 1rem 1rem;
+  padding: .6rem .6rem;
   cursor: pointer;
   margin: 1rem 0rem;
   width: 90%;
