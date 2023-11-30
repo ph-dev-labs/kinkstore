@@ -7,14 +7,18 @@ import { useParams } from "react-router-dom";
 
 function CategoriesProductItem() {
   const { categoryId } = useParams();
+  const normalizedCategoryId = categoryId.replace(':', '')
   
   const {
     data,
     isLoading,
     isError,
     refetch,
-  } = useGetCategoriesProductQuery(categoryId);
+  } = useGetCategoriesProductQuery(normalizedCategoryId);
 
+  if(data) {
+    console.log(data)
+  }
   
   
   useEffect(() => {
@@ -26,7 +30,7 @@ function CategoriesProductItem() {
 
   return (
     <Container breakPoint={breakPoint}>
-      {data?.result?.map((item) => {
+      {data?.results?.map((item) => {
         const { id, picture, description, title, price } = item;
         return (
           <SellingProducts src={picture} title={title} price={price} key={id} />
