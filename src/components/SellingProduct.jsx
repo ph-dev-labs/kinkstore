@@ -1,10 +1,19 @@
 import React from "react";
 import { useMediaQuery } from "react-responsive";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
-function SellingProducts({ src, title, price }) {
+
+function SellingProducts({id, src, title, price }) {
   const breakPoint = useMediaQuery({ query: "(max-width: 999px)" });
+  
+  const navigate = useNavigate()
 
+  const handleNavigation = (id) => {
+    navigate(`/product/${id}`)
+  }
+
+ 
   return (
     <Container breakPoint={breakPoint}>
       <ImgContainer>
@@ -12,7 +21,7 @@ function SellingProducts({ src, title, price }) {
       </ImgContainer>
       <p>{title}</p>
       <span>${price}</span>
-      <Button>Choose option</Button>
+      <Button onClick={(() => handleNavigation(id))}>Choose option</Button>
     </Container>
   );
 }
