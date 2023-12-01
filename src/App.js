@@ -9,6 +9,7 @@ function App() {
   return (
     <div className="App">
       <Routes>
+
         <Route path="/" exact element={<Home />}/>
         <Route path="category/:categoryId" element={<CategoryProduct />} />
         <Route path='product/:productId' element={<ProductDes />} />

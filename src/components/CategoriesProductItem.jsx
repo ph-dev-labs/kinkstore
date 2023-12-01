@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useMediaQuery } from "react-responsive";
 import SellingProducts from "./SellingProduct";
@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 
 function CategoriesProductItem() {
   const { categoryId } = useParams();
+
   const normalizedCategoryId = categoryId.replace(':', '')
   
   const {
@@ -20,11 +21,9 @@ function CategoriesProductItem() {
     console.log(data.id)
   }
   
-  
   useEffect(() => {
     // Refetch products whenever categoryId changes
-    refetch();
-  }, [categoryId, refetch]);
+  }, [categoryId]);
 
   const breakPoint = useMediaQuery({ query: "(max-width: 999px)" });
 
