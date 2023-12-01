@@ -104,6 +104,7 @@ const MenuItemsContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  border-bottom: 1px solid #677279;
 `;
 
 const Expand = styled(ChevronRightIcon)`
