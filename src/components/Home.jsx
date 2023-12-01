@@ -11,7 +11,6 @@ import Footer from "./Footer.jsx";
 function Home() {
   return (
     <div>
-      <Aside />
       <Header />
       <Main />
       <Services />

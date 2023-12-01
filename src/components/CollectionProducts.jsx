@@ -1,13 +1,19 @@
 import React from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
-function Product({ src, title }) {
+function Product({id, src, title }) {
+  const navigate = useNavigate()
+
+  const handleCategories = (id) => {
+    navigate(`/category/${id}`)
+  }
   return (
     <Container>
       <ImgContainer>
         <ProductImage src={src} />
       </ImgContainer>
-      <span>{title}</span>
+      <span >{title}</span>
     </Container>
   );
 }
