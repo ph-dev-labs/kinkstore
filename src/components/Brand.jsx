@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 function Brand() {
   return (
-    <Container>
+    <Container >
       <div>
         <p>&copy; 2023 Kink Store</p>
         <p>Powered by Shopify</p>
