@@ -5,10 +5,15 @@ import { useState } from "react";
 import Header from "./Header";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { useGetCategoryQuery } from "../redux/api/api";
+import CreateList from "./CreateList";
 
 function MenuOptions({ toggle }) {
   const [isExpandCategory, setIsExpandCategory] = useState(false);
   const [isExpandProduct, setIsExpandProduct] = useState(false);
+
+  const { data, isLoading, isError } = useGetCategoryQuery();
+  console.log(data, isLoading, isError);
 
   function handleIsExpandCategory() {
     setIsExpandCategory(!isExpandCategory);
@@ -18,6 +23,7 @@ function MenuOptions({ toggle }) {
     setIsExpandProduct(!isExpandProduct);
   }
 
+  console.log(`is expanded: ${isExpandCategory}`);
   return (
     <Container>
       <CloseContainer>
@@ -25,9 +31,12 @@ function MenuOptions({ toggle }) {
       </CloseContainer>
       <MenuItemsContainer>
         <section className="categories">
-          <p>Categories</p>
+          <li>
+            Categories
+            {!isError && data && isExpandCategory && <CreateList data={data} />}
+          </li>
           <div>
-            {isExpandCategory ? (
+            {data && isExpandCategory ? (
               <Collapse onClick={handleIsExpandCategory} />
             ) : (
               <Expand onClick={handleIsExpandCategory} />
@@ -35,7 +44,7 @@ function MenuOptions({ toggle }) {
           </div>
         </section>
         <section className="products">
-          <p>Products</p>
+          <li>Products</li>
           <div>
             {isExpandProduct ? (
               <Collapse onClick={handleIsExpandProduct} />
@@ -45,7 +54,7 @@ function MenuOptions({ toggle }) {
           </div>
         </section>
         <section>
-          <p>FAQ</p>
+          <li>FAQ</li>
         </section>
       </MenuItemsContainer>
     </Container>
@@ -66,16 +75,36 @@ const Container = styled.div`
   padding: 0.5rem;
   color: #677279;
 
-  p {
+  li {
     color: inherit;
     cursor: pointer;
     padding-left: 0.5rem;
+    list-style: none;
+    vertical-align: center;
+    position: relative;
   }
+  // ul {
+  //   display: flex;
+  //   flex-direction: column;
+  //   justify-content: start;
+  //   align-items: start;
+  //   position: absolute;
+  //   top: 0;
+  //   bottom: 0;
+  //   left: 0;
+  //   right: 0;
+  //   color: inherit;
+  // }
+
+  // ul li {
+  //   font-weight: bold;
+  // }
 
   section.categories,
   section.products {
     display: flex;
     justify-content: space-around;
+    align-items: center;
   }
 
   section.categories div,
@@ -83,6 +112,16 @@ const Container = styled.div`
     display: flex;
     justify-content: end;
     align-items: center;
+  }
+
+  section.products {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+  }
+
+  section {
+    margin-bottom: 1rem;
   }
 `;
 
@@ -110,10 +149,13 @@ const MenuItemsContainer = styled.div`
 const Expand = styled(ChevronRightIcon)`
   color: inherit;
   padding-right: 2rem;
+  cursor: pointer;
 `;
 
 const Collapse = styled(ExpandMoreIcon)`
   color: inherit;
   padding-right: 2rem;
+  margin-bottom: 1.5rem;
+  cursor: pointer;
 `;
 export default MenuOptions;
