@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "https://realtorecom.citimal.com/api",
+  baseUrl: "http://realtorecom.citimal.com/api",
 });
 
 
@@ -79,6 +79,12 @@ export const kinkApi = createApi({
         method: "GET",
       }),
     }),
+    getProductDesc: builder.query({
+      query: (productId) => ({
+        url: `/product/${productId}`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
@@ -92,5 +98,6 @@ export const {
   useResetPasswordMutation,
   useGetProductByCollectionQuery,
   useGetProductBestSellingQuery,
-  useGetCategoriesProductQuery
+  useGetCategoriesProductQuery,
+  useGetProductDescQuery
 } = kinkApi;

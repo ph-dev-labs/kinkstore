@@ -1,13 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { useGetCategoryQuery } from "../redux/api/api";
+import CartPage from "./CartPage";
 
-export default function () {
+export default function Header() {
+  const [isCartOpen, setIsCartOpen] = useState(false); // State to manage cart visibility
   const data = useGetCategoryQuery();
+
+  // Function to toggle cart visibility
+  const toggleCart = () => {
+    setIsCartOpen(!isCartOpen);
+  };
+
   return (
     <>
       <HeaderText>
@@ -22,10 +30,13 @@ export default function () {
           <section className="right">
             <Search />
             <Profile />
-            <Cart />
+            {/* onClick event to toggle the CartPage */}
+            <Cart onClick={toggleCart} />
           </section>
         </MainHeader>
       </Navbar>
+      {/* Render CartPage based on isCartOpen state */}
+      {isCartOpen &&<CartPageContainer><CartPage  toggle={toggleCart}/></CartPageContainer> }
     </>
   );
 }
@@ -86,6 +97,18 @@ const Logo = styled.img`
   cursor: pointer;
 `;
 
+const CartPageContainer = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  z-index: 999; /* Ensure it's above other content */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 const Menu = styled(MenuIcon)`
   cursor: pointer;
 `;

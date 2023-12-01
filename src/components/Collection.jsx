@@ -15,8 +15,7 @@ function Collection() {
   const items = data?.map((product) => {
     const {id, category, picture} = product
     return (
-      <Product key={id} src={picture} title={category} />
-
+      <Product key={id} src={picture} title={category} id={id} />
     )
   })
 

@@ -15,7 +15,7 @@ function SellingProductsContainer() {
       {data?.map((item) => {
         const { id, picture, description, title, price } = item;
         return (
-          <SellingProducts src={picture} title={title} price={price} key={id}/>
+          <SellingProducts src={picture} title={title} price={price} key={id} id={id}/>
         );
       })}
     </Container>
