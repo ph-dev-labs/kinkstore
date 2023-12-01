@@ -6,10 +6,13 @@ import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { useGetCategoryQuery } from "../redux/api/api";
 import MenuOptions from "./MenuOptions";
-import { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
+import CartPage from "./CartPage";
 
-export default function () {
+
+export default function Header() {
+  const [isCartOpen, setIsCartOpen] = useState(false); // State to manage cart visibility
+  const data = useGetCategoryQuery();
   const [isMenuClicked, setMenuClicked] = useState(false);
 
   function handleMenuToggle() {
@@ -18,18 +21,10 @@ export default function () {
 
   console.log(`isMenuCLicked: ${isMenuClicked}`);
 
-  
-
-import CartPage from "./CartPage";
-
-export default function Header() {
-  const [isCartOpen, setIsCartOpen] = useState(false); // State to manage cart visibility
-  const data = useGetCategoryQuery();
-
   // Function to toggle cart visibility
   const toggleCart = () => {
     setIsCartOpen(!isCartOpen);
-  
+  }
   return (
     <>
       {isMenuClicked && <MenuOptions toggle={handleMenuToggle} />}
