@@ -48,6 +48,6 @@ const PaymentMethods = styled.div`
   flex-direction: row;
   justify-content: start;
   align-items: flex-start;
-  flex: ${({ breakPoint }) => breakPoint ? "1" : ""};
+  gap: 0.5rem;
 `;
 export default PaymentOpts;

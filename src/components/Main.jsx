@@ -12,7 +12,7 @@ function Main() {
 const Container = styled.div`
   height: 78vh;
   width: 100%;
-  position: static;
+  position: relative;
   z-index: -1;
   p {
     color: white;

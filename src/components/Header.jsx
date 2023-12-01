@@ -5,18 +5,32 @@ import SearchIcon from "@mui/icons-material/Search";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { useGetCategoryQuery } from "../redux/api/api";
+import MenuOptions from "./MenuOptions";
+import { useState } from "react";
+import CloseIcon from "@mui/icons-material/Close";
 
 export default function () {
+  const [isMenuClicked, setMenuClicked] = useState(false);
+
+  function handleMenuToggle() {
+    setMenuClicked(!isMenuClicked);
+  }
+
+  console.log(`isMenuCLicked: ${isMenuClicked}`);
+
   const data = useGetCategoryQuery();
+
   return (
     <>
+      {isMenuClicked && <MenuOptions toggle={handleMenuToggle} />}
+
       <HeaderText>
         <p>Free shipping Over $69 for US | Discreet Shipping and Billing</p>
       </HeaderText>
       <Navbar>
         <MainHeader>
           <section className="left">
-            <Menu />
+            <Menu onClick={handleMenuToggle} />
             <Logo src="/images/ADS-1.png" />
           </section>
           <section className="right">
@@ -96,5 +110,11 @@ const Profile = styled(PersonOutlineIcon)`
   cursor: pointer;
 `;
 const Cart = styled(ShoppingCartOutlinedIcon)`
+  cursor: pointer;
+`;
+const Close = styled(CloseIcon)`
+  font-weight: bold;
+  margin-right: 0.5rem;
+  font-size: 2rem;
   cursor: pointer;
 `;
