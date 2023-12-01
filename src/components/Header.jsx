@@ -18,7 +18,7 @@ export default function () {
 
   console.log(`isMenuCLicked: ${isMenuClicked}`);
 
-  const data = useGetCategoryQuery();
+  
 
 import CartPage from "./CartPage";
 
