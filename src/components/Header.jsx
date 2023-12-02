@@ -91,12 +91,14 @@ const MainHeader = styled.section`
     color: inherit;
     justify-content: baseline;
     align-items: center;
+    gap: 2rem;
   }
 
   section.right {
     display: flex;
     color: inherit;
-    justify-content: center;
+    justify-content: space-between;
+    width: 30%;
     align-items: center;
   }
 `;
