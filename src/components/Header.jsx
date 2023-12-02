@@ -69,6 +69,7 @@ const HeaderText = styled.div`
   justify-content: center;
   align-items: center;
   border-bottom: 1px solid rgba(255, 0, 0, 0.3);
+  
   p {
     text-align: center;
     line-height: 1.5;

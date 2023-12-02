@@ -55,16 +55,12 @@ const handleTokenStorage = async (token) => {
 export const moveToShopPage = (
   email,
   password,
-  setIsLoading,
   loginApi,
-  navigate,
   setEmailField,
   setPassword,
-  setVisible
 ) => {
   return async (dispatch) => {
-    setIsLoading(true);
-
+   
     try {
       const data = await loginApi({ email, password }).unwrap();
       await handleTokenStorage(data.token);

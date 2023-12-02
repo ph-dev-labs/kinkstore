@@ -13,9 +13,7 @@ const ProductDes = () => {
   const { data, isError, isLoading, isSuccess } =
     useGetProductDescQuery(productId);
 
-  console.log(
-    `isError: ${isError}, isLoading: ${isLoading}, isFufilled: ${isSuccess}`
-  );
+  
 
   if (isLoading) {
     return <h2>FETCHING DATA...</h2>;
@@ -23,9 +21,6 @@ const ProductDes = () => {
 
   const { picture, id, description, discount_price, price, title } = data;
 
-  if (data) {
-    console.log(data);
-  }
 
   if (isError) {
     return <h2>Error Loading product details...</h2>;
@@ -127,7 +122,6 @@ const QuantityContainer = styled.div`
   
 
   div {
-    border-radius: 20px;
     border: 1px solid grey;
     cursor: pointer;
   }
