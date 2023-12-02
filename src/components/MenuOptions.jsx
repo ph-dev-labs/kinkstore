@@ -13,7 +13,6 @@ function MenuOptions({ toggle }) {
   const [isExpandProduct, setIsExpandProduct] = useState(false);
 
   const { data, isLoading, isError } = useGetCategoryQuery();
-  console.log(data, isLoading, isError);
 
   function handleIsExpandCategory() {
     setIsExpandCategory(!isExpandCategory);
@@ -23,7 +22,6 @@ function MenuOptions({ toggle }) {
     setIsExpandProduct(!isExpandProduct);
   }
 
-  console.log(`is expanded: ${isExpandCategory}`);
   return (
     <Container>
       <CloseContainer>

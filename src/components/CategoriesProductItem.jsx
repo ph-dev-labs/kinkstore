@@ -8,22 +8,19 @@ import { useParams } from "react-router-dom";
 function CategoriesProductItem() {
   const { categoryId } = useParams();
 
-  const normalizedCategoryId = categoryId.replace(':', '')
-  
-  const {
-    data,
-    isLoading,
-    isError,
-    refetch,
-  } = useGetCategoriesProductQuery(normalizedCategoryId);
+  const normalizedCategoryId = categoryId.replace(":", "");
 
-  if(data) {
-    console.log(data.id)
+  const { data, isLoading, isError, refetch } =
+    useGetCategoriesProductQuery(normalizedCategoryId);
+
+  if (data) {
+    console.log(data.id);
   }
-  
+
   useEffect(() => {
     // Refetch products whenever categoryId changes
-  }, [categoryId]);
+    refetch();
+  }, [categoryId, refetch]);
 
   const breakPoint = useMediaQuery({ query: "(max-width: 999px)" });
 
@@ -32,7 +29,13 @@ function CategoriesProductItem() {
       {data?.results?.map((item) => {
         const { id, picture, description, title, price } = item;
         return (
-          <SellingProducts src={picture} title={title} price={price} key={id} id={id} />
+          <SellingProducts
+            src={picture}
+            title={title}
+            price={price}
+            key={id}
+            id={id}
+          />
         );
       })}
     </Container>
