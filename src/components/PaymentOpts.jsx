@@ -12,7 +12,6 @@ import { useMediaQuery } from "react-responsive";
 
 function PaymentOpts() {
   const breakPoint = useMediaQuery({ query: "(max-width: 642px)" });
-  console.log(`breakPoint in paymentMethods: ${breakPoint}`)
 
   return (
     <Container>

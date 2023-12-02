@@ -21,7 +21,7 @@ function SellingProducts({id, src, title, price }) {
       </ImgContainer>
       <p>{title}</p>
       <span>${price}</span>
-      <Button onClick={(() => handleNavigation(id))}>Choose option</Button>
+      <Button onClick={(() => handleNavigation(id))}>View details</Button>
     </Container>
   );
 }
