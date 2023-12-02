@@ -19,7 +19,6 @@ export default function Header() {
     setMenuClicked(!isMenuClicked);
   }
 
-  console.log(`isMenuCLicked: ${isMenuClicked}`);
 
   // Function to toggle cart visibility
   const toggleCart = () => {
