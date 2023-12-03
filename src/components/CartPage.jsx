@@ -51,10 +51,9 @@ const CartPage = ({ toggle }) => {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 15px 30px;
+  padding: 15px 0;
   justify-content: center;
   align-items: center;
-  border: 1px solid black;
   max-width: 390px;
   width: 100%;
   border-radius: 4px;
@@ -68,6 +67,8 @@ const CartHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 10px;
+ 
 `;
 
 const CloseButton = styled(CloseIcon)`
@@ -81,6 +82,10 @@ const Cart = styled.div`
   justify-content: center;
   align-items: flex-start;
   gap: 0.5rem;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+
 `;
 
 const CartItemWrapper = styled.div`
