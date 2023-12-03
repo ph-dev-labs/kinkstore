@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "http://adultbdsmstore.citimal.com/api",
+  baseUrl: "https://adultbdsmstore.citimal.com/api",
 });
 
 export const kinkApi = createApi({
