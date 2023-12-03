@@ -4,9 +4,19 @@ import Header from "./Header";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-function LoginPage() {
+function RegisterPage() {
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  function handleFirstname(e) {
+    setEmail(e.target.value);
+  }
+
+  function handleLastname(e) {
+    setEmail(e.target.value);
+  }
 
   function handleEmail(e) {
     setEmail(e.target.value);
@@ -23,20 +33,30 @@ function LoginPage() {
   return (
     <Container>
       <Header />
-      <h1>Login to my account</h1>
-      <p>Enter your e-mail and password</p>
+      <h1>Create my account</h1>
+      <p>Please fill in the information below:</p>
 
       <Form action="" method="POST" onSubmit={handleSubmit}>
+        <input
+          placeholder="First name"
+          onChange={handleFirstname}
+          value={firstname}
+        />
+        <input
+          placeholder="Last name"
+          onChange={handleLastname}
+          value={lastname}
+        />
         <input placeholder="Email" onChange={handleEmail} value={email} />
         <input
           placeholder="Password"
           onChange={handlePassword}
           value={password}
         />
-        <LoginButton>Login</LoginButton>
+        <LoginButton>Register</LoginButton>
       </Form>
       <p>
-        New Customer? <Link to="/register">Create your account</Link>
+        Already have an account? <Link to="/login">Login here</Link>
       </p>
     </Container>
   );
@@ -48,7 +68,6 @@ const Container = styled.div`
   align-items: center;
   box-sizing: borde-box;
   min-height: 100vh;
-
   a{
      color: #d72029;
      text-decoration: none;
@@ -88,4 +107,4 @@ const Form = styled.form`
   }
 `;
 
-export default LoginPage;
+export default RegisterPage;

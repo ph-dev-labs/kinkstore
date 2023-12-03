@@ -8,22 +8,26 @@ import { useGetCategoryQuery } from "../redux/api/api";
 import MenuOptions from "./MenuOptions";
 import CloseIcon from "@mui/icons-material/Close";
 import CartPage from "./CartPage";
-
+import { useNavigate } from "react-router-dom";
 
 export default function Header() {
+  const navigate = useNavigate();
   const [isCartOpen, setIsCartOpen] = useState(false); // State to manage cart visibility
   const data = useGetCategoryQuery();
   const [isMenuClicked, setMenuClicked] = useState(false);
+
+  function handleLogin() {
+    navigate("/login");
+  }
 
   function handleMenuToggle() {
     setMenuClicked(!isMenuClicked);
   }
 
-
   // Function to toggle cart visibility
   const toggleCart = () => {
     setIsCartOpen(!isCartOpen);
-  }
+  };
   return (
     <>
       {isMenuClicked && <MenuOptions toggle={handleMenuToggle} />}
@@ -35,18 +39,22 @@ export default function Header() {
         <MainHeader>
           <section className="left">
             <Menu onClick={handleMenuToggle} />
-            <Logo src="/images/ADS-1.png" />
+            <Logo src="/images/ADS-1.png"  onClick={()=>{navigate("/")}}/>
           </section>
           <section className="right">
             <Search />
-            <Profile />
+            <Profile onClick={handleLogin} />
             {/* onClick event to toggle the CartPage */}
             <Cart onClick={toggleCart} />
           </section>
         </MainHeader>
       </Navbar>
       {/* Render CartPage based on isCartOpen state */}
-      {isCartOpen &&<CartPageContainer><CartPage  toggle={toggleCart}/></CartPageContainer> }
+      {isCartOpen && (
+        <CartPageContainer>
+          <CartPage toggle={toggleCart} />
+        </CartPageContainer>
+      )}
     </>
   );
 }
