@@ -109,15 +109,15 @@ const Logo = styled.img`
 
 const CartPageContainer = styled.div`
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #fff;
-  z-index: 999; /* Ensure it's above other content */
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #fff;
+  z-index: 999;
 `;
 const Menu = styled(MenuIcon)`
   cursor: pointer;
