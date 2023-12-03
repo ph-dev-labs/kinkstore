@@ -1,51 +1,68 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Header from "./Header";
-import { useUserLoginMutation } from "../redux/api/api";
 import { useDispatch } from "react-redux";
-import { moveToShopPage } from "../redux/login/login";
 import { loginSuccess, loginFailure } from "../redux/login/login";
 
-function RecoveryPage() {
-  const [email, setEmail] = useState("");
-  
-  const [loginApi] = useUserLoginMutation();
+function ResetPassword() {
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const dispatch = useDispatch();
 
-  function handleEmail(e) {
-    setEmail(e.target.value);
+  function handlePassword(e) {
+    setPassword(e.target.value);
   }
 
-  
-
- 
+  function handleConfirmPassword(e) {
+    setConfirmPassword(e.target.value);
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!password || !confirmPassword) {
+      toast.error("Please fill in both password fields");
+    } else if (password !== confirmPassword) {
+      toast.error("Passwords do not match");
+    } else {
+      // Passwords are valid, proceed with your login logic here
+      // For example, dispatch an action to handle successful login
+      dispatch(loginSuccess());
+      // Or perform the API call for login
+    }
   };
 
   return (
     <Container>
       <Header />
-      <h1>Recover Password</h1>
-      <p>Enter your e-mail and password</p>
+      <h1>Reset Password</h1>
+      <p>Enter your new password</p>
 
       <Form onSubmit={handleSubmit}>
-        <input placeholder="email" onChange={handleEmail} value={email} />
-        <LoginButton type="submit">Recover</LoginButton>
+        <input
+          placeholder="Password"
+          type="password"
+          onChange={handlePassword}
+          value={password}
+        />
+        <input
+          placeholder="Confirm Password"
+          type="password"
+          onChange={handleConfirmPassword}
+          value={confirmPassword}
+        />
+        <LoginButton onClick={handleSubmit} type="submit">Reset password</LoginButton>
       </Form>
-      <p>
-        Remember password? <Link to="/login">back to login</Link>
-      </p>
-
       <ToastContainer />
     </Container>
   );
 }
+
+// Styled components...
+
+export default ResetPassword;
 
 
 const Container = styled.div`
@@ -58,7 +75,6 @@ const Container = styled.div`
   a{
      color: #d72029;
      text-decoration: none;
-     text-transform: capitalize;
   }
     
   }
@@ -92,7 +108,8 @@ const Form = styled.form`
     height: 48px;
     padding: 5px 10px;
     outline: none;
+    margin: .6rem;
   }
 `;
 
-export default RecoveryPage;
+
