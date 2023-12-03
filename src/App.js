@@ -5,6 +5,7 @@ import CategoryProduct from './components/CategoryProduct.jsx';
 import ProductDes from './components/ProductDes.jsx';
 import RegisterPage from './components/RegisterPage.jsx'
 import LoginPage from './components/LoginPage.jsx'
+import RecoveryPage from './components/RecoverEmail.jsx'; 
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <Route path='product/:productId' element={<ProductDes />} />
         <Route path='login' element={<LoginPage />} />
         <Route path='register' element={<RegisterPage />} />
+        <Route path='recoverpassword' element={<RecoveryPage />} />
       </Routes>
     </div>
   );

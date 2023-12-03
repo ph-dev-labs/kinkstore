@@ -52,25 +52,4 @@ const handleTokenStorage = async (token) => {
   }
 };
 
-export const moveToShopPage = (
-  email,
-  password,
-  loginApi,
-  setEmailField,
-  setPassword,
-) => {
-  return async (dispatch) => {
-   
-    try {
-      const data = await loginApi({ email, password }).unwrap();
-      await handleTokenStorage(data.token);
-      dispatch(loginSuccess(data));    
-      setEmailField("");
-      setPassword("");
-    } catch (error) {
-      dispatch(loginFailure(error.message));
-      // Handle error, e.g., display error message to the user
-      console.error("Login failed:", error);
-    }
-  };
-};
+

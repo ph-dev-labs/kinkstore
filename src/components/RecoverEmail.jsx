@@ -10,23 +10,21 @@ import { useDispatch } from "react-redux";
 import { moveToShopPage } from "../redux/login/login";
 import { loginSuccess, loginFailure } from "../redux/login/login";
 
-function LoginPage() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+function RecoveryPage() {
+  const [email, setEmail] = useState("");
+  
   const [loginApi] = useUserLoginMutation();
   const dispatch = useDispatch();
 
   function handleEmail(e) {
-    setUsername(e.target.value);
+    setEmail(e.target.value);
   }
 
-  function handlePassword(e) {
-    setPassword(e.target.value);
-  }
+  
 
   const handleLogin = async () => {
     try {
-      const response = await loginApi({ username, password }).unwrap();
+      const response = await loginApi({ email }).unwrap();
       if (response.status === "success") {
         toast.success("Login successful!");
         dispatch(loginSuccess(response))
@@ -48,24 +46,15 @@ function LoginPage() {
   return (
     <Container>
       <Header />
-      <h1>Login to my account</h1>
+      <h1>Recover Password</h1>
       <p>Enter your e-mail and password</p>
 
       <Form onSubmit={handleSubmit}>
-        <input placeholder="username" onChange={handleEmail} value={username} />
-        <input
-          placeholder="Password"
-          type="password"
-          onChange={handlePassword}
-          value={password}
-        />
-        <LoginButton onClick={handleSubmit} type="submit">Login</LoginButton>
+        <input placeholder="email" onChange={handleEmail} value={email} />
+        <LoginButton onClick={handleSubmit} type="submit">Recover</LoginButton>
       </Form>
       <p>
-        New Customer? <Link to="/register">Create your account</Link>
-      </p>
-      <p>
-        loss password? <Link to="/recoverpassword">recover password</Link>
+        Remember password? <Link to="/login">back to login</Link>
       </p>
 
       <ToastContainer />
@@ -84,6 +73,7 @@ const Container = styled.div`
   a{
      color: #d72029;
      text-decoration: none;
+     text-transform: capitalize;
   }
     
   }
@@ -120,4 +110,4 @@ const Form = styled.form`
   }
 `;
 
-export default LoginPage;
+export default RecoveryPage;

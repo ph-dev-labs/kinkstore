@@ -8,7 +8,7 @@ import { useGetCategoryQuery } from "../redux/api/api";
 import MenuOptions from "./MenuOptions";
 import CloseIcon from "@mui/icons-material/Close";
 import CartPage from "./CartPage";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Header() {
   const navigate = useNavigate();
@@ -18,6 +18,10 @@ export default function Header() {
 
   function handleLogin() {
     navigate("/login");
+  }
+
+  const handleNavigate = () => {
+    navigate("/")
   }
 
   function handleMenuToggle() {
@@ -39,7 +43,7 @@ export default function Header() {
         <MainHeader>
           <section className="left">
             <Menu onClick={handleMenuToggle} />
-            <Logo src="/images/ADS-1.png"  onClick={()=>{navigate("/")}}/>
+           <Link to="/"> <Logo src="/images/ADS-1.png"  onClick={()=>{navigate("/")}} /></Link>
           </section>
           <section className="right">
             <Search />
@@ -100,6 +104,7 @@ const MainHeader = styled.section`
     justify-content: baseline;
     align-items: center;
     gap: 2rem;
+    width: 30%;
   }
 
   section.right {
@@ -113,7 +118,7 @@ const MainHeader = styled.section`
 
 const Logo = styled.img`
   max-width: 100px;
-  height: 40px;
+  height: 80px;
   object-fit: cover;
   cursor: pointer;
 `;
