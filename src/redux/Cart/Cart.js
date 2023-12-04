@@ -5,82 +5,55 @@ const initialState = {
   totalPrice: 0,
 };
 
+const calculateTotalPrice = (cartItems) =>
+  cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+
 const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
     addItemToCart(state, action) {
       const newItem = action.payload;
-      const existingItem = state.cartItems.find(item => item.id === newItem.id);
+      const existingItemIndex = state.cartItems.findIndex(
+        (item) => item.id === newItem.id
+      );
 
-      if (existingItem) {
-        existingItem.quantity += 1;
+      if (existingItemIndex !== -1) {
+        state.cartItems[existingItemIndex].quantity += 1;
       } else {
         state.cartItems.push({ ...newItem, quantity: 1 });
       }
 
-      // Update totalPrice when adding an item
-      state.totalPrice = state.cartItems.reduce(
-        (total, item) => total + item.price * item.quantity,
-        0
-      );
+      state.totalPrice = calculateTotalPrice(state.cartItems);
     },
-    // Other reducers...
-    incrementCartItem(state, action) {
-      const idToIncrement = action.payload;
-      state.cartItems = state.cartItems.map(item =>
-        item.id === idToIncrement ? { ...item, quantity: item.quantity + 1 } : item
-      );
+    updateCartItemQuantity(state, action) {
+      const { itemId, quantity } = action.payload;
+      const itemToUpdate = state.cartItems.find((item) => item.id === itemId);
 
-      // Update totalPrice when incrementing an item
-      state.totalPrice = state.cartItems.reduce(
-        (total, item) => total + item.price * item.quantity,
-        0
-      );
-    },
-    decrementCartItem(state, action) {
-      const idToDecrement = action.payload;
-      state.cartItems = state.cartItems.map(item =>
-        item.id === idToDecrement && item.quantity > 1
-          ? { ...item, quantity: item.quantity - 1 }
-          : item
-      );
-
-      // Update totalPrice when decrementing an item
-      state.totalPrice = state.cartItems.reduce(
-        (total, item) => total + item.price * item.quantity,
-        0
-      );
+      if (itemToUpdate) {
+        itemToUpdate.quantity = quantity;
+        state.totalPrice = calculateTotalPrice(state.cartItems);
+      }
     },
     removeItemFromCart(state, action) {
-      const idToRemove = action.payload;
-      state.cartItems = state.cartItems.filter(item => item.id !== idToRemove);
-
-      // Update totalPrice when removing an item
-      state.totalPrice = state.cartItems.reduce(
-        (total, item) => total + item.price * item.quantity,
-        0
+      const itemIdToRemove = action.payload;
+      state.cartItems = state.cartItems.filter(
+        (item) => item.id !== itemIdToRemove
       );
+      state.totalPrice = calculateTotalPrice(state.cartItems);
     },
-    deleteCartItem(state, action) {
-      const idToDelete = action.payload;
-      state.cartItems = state.cartItems.filter(item => item.id !== idToDelete);
-
-      // Update totalPrice when deleting an item
-      state.totalPrice = state.cartItems.reduce(
-        (total, item) => total + item.price * item.quantity,
-        0
-      );
+    clearCart(state) {
+      state.cartItems = [];
+      state.totalPrice = 0;
     },
   },
 });
 
 export const {
   addItemToCart,
+  updateCartItemQuantity,
   removeItemFromCart,
-  incrementCartItem,
-  decrementCartItem,
-  deleteCartItem,
+  clearCart,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

@@ -1,17 +1,15 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
-
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "http://realtorecom.citimal.com/api",
+  baseUrl: "https://adultbdsmstore.citimal.com/api",
 });
-
 
 export const kinkApi = createApi({
   baseQuery,
   endpoints: (builder) => ({
     register: builder.mutation({
       query: (userData) => ({
-        url: "/register",
+        url: "/register/",
         method: "POST",
         body: userData,
       }),
@@ -23,12 +21,12 @@ export const kinkApi = createApi({
         body: { otp, email },
       }),
     }),
-  
+
     userLogin: builder.mutation({
-      query: ({ email, password }) => ({
+      query: ({ username, password }) => ({
         url: "/login",
         method: "POST",
-        body: { email, password },
+        body: { username, password },
       }),
     }),
     forgotPassword: builder.mutation({
@@ -56,21 +54,18 @@ export const kinkApi = createApi({
       query: () => ({
         url: "/category",
         method: "GET",
-       
       }),
     }),
     getProductByCollection: builder.query({
       query: () => ({
         url: "/products-by-collection",
         method: "GET",
-       
       }),
     }),
     getProductBestSelling: builder.query({
       query: () => ({
         url: "/products-by-best_selling",
         method: "GET",
-       
       }),
     }),
     getCategoriesProduct: builder.query({
@@ -91,13 +86,9 @@ export const kinkApi = createApi({
 export const {
   useRegisterMutation,
   useUserLoginMutation,
-  useConfirmOtpMutation,
-  useForgotPasswordMutation,
   useGetCategoryQuery,
-  useResetPasswordOtpMutation,
-  useResetPasswordMutation,
   useGetProductByCollectionQuery,
   useGetProductBestSellingQuery,
   useGetCategoriesProductQuery,
-  useGetProductDescQuery
+  useGetProductDescQuery,
 } = kinkApi;

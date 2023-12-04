@@ -1,21 +1,25 @@
 import React from "react";
 import styled from "styled-components";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Header from "./Header";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useRegisterMutation } from "../redux/api/api";
 
 function RegisterPage() {
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [register] = useRegisterMutation();
 
   function handleFirstname(e) {
-    setEmail(e.target.value);
+    setFirstname(e.target.value);
   }
 
   function handleLastname(e) {
-    setEmail(e.target.value);
+    setLastname(e.target.value);
   }
 
   function handleEmail(e) {
@@ -26,9 +30,25 @@ function RegisterPage() {
     setPassword(e.target.value);
   }
 
-  function handleSubmit(e) {
+  const handleRegistration = async () => {
+    const userData = { firstname, lastname, email, password };
+    try {
+      let response = await register(userData).unwrap();
+      if (response.status === "Ok") {
+        toast.success("Registration successful!");
+        // Handle redirection or any other action upon successful registration
+      } else {
+        toast.error("Registration failed.");
+      }
+    } catch (error) {
+      toast.error("Registration failed.");
+    }
+  };
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-  }
+    handleRegistration();
+  };
 
   return (
     <Container>
@@ -36,7 +56,7 @@ function RegisterPage() {
       <h1>Create my account</h1>
       <p>Please fill in the information below:</p>
 
-      <Form action="" method="POST" onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <input
           placeholder="First name"
           onChange={handleFirstname}
@@ -47,17 +67,20 @@ function RegisterPage() {
           onChange={handleLastname}
           value={lastname}
         />
-        <input placeholder="Email" onChange={handleEmail} value={email} />
+        <input placeholder="Email" onChange={handleEmail} value={email} type="email" />
         <input
           placeholder="Password"
+          type="password"
           onChange={handlePassword}
           value={password}
         />
-        <LoginButton>Register</LoginButton>
+        <LoginButton type="submit" onClick={handleSubmit}>Register</LoginButton>
       </Form>
       <p>
         Already have an account? <Link to="/login">Login here</Link>
       </p>
+
+      <ToastContainer />
     </Container>
   );
 }

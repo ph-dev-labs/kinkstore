@@ -1,11 +1,18 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { kinkApi } from "./redux/api/api";
+import cartReducer from "./redux/Cart/Cart";
+import loginReducer from "./redux/login/login";
+import registrationReducer from "./redux/Registration/Registration";
+
+const rootReducer = {
+  [kinkApi.reducerPath]: kinkApi.reducer,
+  cart: cartReducer,
+  login: loginReducer,
+  registration: registrationReducer,
+};
 
 export const store = configureStore({
-    reducer:{
-        [kinkApi.reducerPath]: kinkApi.reducer,
-    },
-
-    middleware: (getDefaultMiddleware) =>
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(kinkApi.middleware),
-})
+});

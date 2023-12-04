@@ -8,7 +8,7 @@ import { useGetCategoryQuery } from "../redux/api/api";
 import MenuOptions from "./MenuOptions";
 import CloseIcon from "@mui/icons-material/Close";
 import CartPage from "./CartPage";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Header({ shouldHide }) {
   const navigate = useNavigate();
@@ -18,6 +18,10 @@ export default function Header({ shouldHide }) {
 
   function handleLogin() {
     navigate("/login");
+  }
+
+  const handleNavigate = () => {
+    navigate("/")
   }
 
   function handleMenuToggle() {
@@ -43,6 +47,7 @@ export default function Header({ shouldHide }) {
       <Navbar>
         <MainHeader>
           <section className="left">
+
             {/*  The "shouldHide" flag is used to hide the Menu icon when the checkout page is rendered. */}
             {shouldHide ? "" : <Menu onClick={handleMenuToggle} />}
 
@@ -52,6 +57,7 @@ export default function Header({ shouldHide }) {
                 navigate("/");
               }}
             />
+
           </section>
 
           {/* "shouldHide" flag is used to hide the search, profile and cart icons.  */}
@@ -97,6 +103,7 @@ const HeaderText = styled.div`
   justify-content: center;
   align-items: center;
   border-bottom: 1px solid rgba(255, 0, 0, 0.3);
+  
   p {
     text-align: center;
     line-height: 1.5;
@@ -119,19 +126,22 @@ const MainHeader = styled.section`
     color: inherit;
     justify-content: baseline;
     align-items: center;
+    gap: 2rem;
+    width: 30%;
   }
 
   section.right {
     display: flex;
     color: inherit;
-    justify-content: center;
+    justify-content: space-between;
+    width: 30%;
     align-items: center;
   }
 `;
 
 const Logo = styled.img`
   max-width: 100px;
-  height: 40px;
+  height: 80px;
   object-fit: cover;
   cursor: pointer;
 `;
