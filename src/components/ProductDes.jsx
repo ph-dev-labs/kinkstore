@@ -5,10 +5,13 @@ import { useParams } from "react-router-dom";
 import { useGetProductDescQuery } from "../redux/api/api";
 import styled from "styled-components";
 import { useMediaQuery } from "react-responsive";
+import { useDispatch } from "react-redux";
+import { addItemToCart } from "../redux/Cart/Cart";
 
 const ProductDes = () => {
   const breakPoint = useMediaQuery({ query: "(max-width: 999px)" });
   const { productId } = useParams();
+  const dispatch = useDispatch()
 
   const { data, isError, isLoading, isSuccess } =
     useGetProductDescQuery(productId);
@@ -21,6 +24,10 @@ const ProductDes = () => {
 
   const { picture, id, description, discount_price, price, title } = data;
 
+  const handleAddToCart = () => {
+    // Dispatch the addItemToCart action with the product data
+    dispatch(addItemToCart({ id, title, price, picture }));
+  }
 
   if (isError) {
     return <h2>Error Loading product details...</h2>;
@@ -30,7 +37,7 @@ const ProductDes = () => {
     <Container key={id}>
       <Header/>
       <ImageContainer>
-        <ProductImg src="https://kinkstore.com/cdn/shop/products/deep-by-kink-estim-comfortable-tieable-plug-533199.jpg?v=1692909977&width=1200" />
+        <ProductImg src={picture} />
       </ImageContainer>
       <h4>{title}</h4>
       <Divider />
@@ -44,7 +51,7 @@ const ProductDes = () => {
             <div> + </div>
           </QuantityContainer>
         </Section>
-        <Button>Add to cart</Button>
+        <Button onClick={handleAddToCart}>Add to cart</Button>
         <Description>
           <h4>Description</h4>
           <p>{description}</p>

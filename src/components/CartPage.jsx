@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { useMediaQuery } from "react-responsive";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  addItemToCart,
   updateCartItemQuantity,
   removeItemFromCart,
   clearCart,
@@ -40,7 +39,7 @@ const CartPage = ({ toggle }) => {
       <Cart breakpoint={breakPoint}>
         {cartItems.map((item) => (
           <CartItemWrapper key={item.id}>
-            <CartItem src={item.pictures} alt={item.title} />
+            <CartItem src={item.picture} alt={item.title} />
             <CartInfo>
               <Section breakpoint={breakPoint}>
                 <p>{item.title}</p>
@@ -70,6 +69,7 @@ const CartPage = ({ toggle }) => {
           </CartItemWrapper>
         ))}
       </Cart>
+      <Button>checkout</Button>
     </Container>
   );
 };
@@ -88,7 +88,7 @@ const Container = styled.div`
   width: 100%;
   border-radius: 4px;
   margin: 30px 10px 0;
-  h4 {
+  h4{
     color: #d72029;
   }
 `;
@@ -98,6 +98,7 @@ const CartHeader = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
+ 
 `;
 
 const CloseButton = styled(CloseIcon)`
@@ -107,36 +108,33 @@ const CloseButton = styled(CloseIcon)`
 
 const Cart = styled.div`
   display: flex;
-  flex-direction: ${({ breakpoint }) => (breakpoint ? "row" : "column")};
+  flex-direction: column;
   justify-content: center;
   align-items: flex-start;
   gap: 0.5rem;
   padding: 10px 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   border-top: 1px solid rgba(0, 0, 0, 0.1);
+
 `;
 
 const CartItemWrapper = styled.div`
-  width: 70px;
-  height: 70px;
   padding: 1rem;
 `;
 
 const CartItem = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  width: 40%;
+ ;
 `;
 
 const CartInfo = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 `;
 
 const Section = styled.div`
   display: flex;
-  justify-content: ${({ breakpoint }) =>
-    breakpoint ? "center" : "flex-start"};
+  justify-content: ${({breakpoint})=> breakpoint ? "center" : "flex-start"};
   align-items: center;
   gap: 1rem;
 `;
@@ -163,4 +161,14 @@ const CartIncreaseDecreaseWrapper = styled.div`
     width: 30px;
     height: 30px;
   }
+`;
+const Button = styled.div`
+  background: #d72029;
+  padding: 15px 30px;
+  color: white;
+  text-align: center;
+  width: 50%;
+  margin: 0 auto;
+  cursor: pointer;
+  border-radius: 5px;
 `;
