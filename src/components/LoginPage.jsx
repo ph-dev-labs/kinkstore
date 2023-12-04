@@ -47,7 +47,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   box-sizing: borde-box;
-  min-height: 100vh;
+  min-height: 100vh;]
 
   a{
      color: #d72029;

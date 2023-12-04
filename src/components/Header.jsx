@@ -10,7 +10,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import CartPage from "./CartPage";
 import { useNavigate } from "react-router-dom";
 
-export default function Header() {
+export default function Header({ shouldHide }) {
   const navigate = useNavigate();
   const [isCartOpen, setIsCartOpen] = useState(false); // State to manage cart visibility
   const data = useGetCategoryQuery();
@@ -29,24 +29,42 @@ export default function Header() {
     setIsCartOpen(!isCartOpen);
   };
   return (
-    <>
+    <Container>
       {isMenuClicked && <MenuOptions toggle={handleMenuToggle} />}
 
-      <HeaderText>
-        <p>Free shipping Over $69 for US | Discreet Shipping and Billing</p>
-      </HeaderText>
+      {/* The "shouldHide" flag is used to hide the HeaderText when the checkout page is rendered. */}
+      {shouldHide ? (
+        ""
+      ) : (
+        <HeaderText>
+          <p>Free shipping Over $69 for US | Discreet Shipping and Billing</p>
+        </HeaderText>
+      )}
       <Navbar>
         <MainHeader>
           <section className="left">
-            <Menu onClick={handleMenuToggle} />
-            <Logo src="/images/ADS-1.png"  onClick={()=>{navigate("/")}}/>
+            {/*  The "shouldHide" flag is used to hide the Menu icon when the checkout page is rendered. */}
+            {shouldHide ? "" : <Menu onClick={handleMenuToggle} />}
+
+            <Logo
+              src="/images/ADS-1.png"
+              onClick={() => {
+                navigate("/");
+              }}
+            />
           </section>
-          <section className="right">
-            <Search />
-            <Profile onClick={handleLogin} />
-            {/* onClick event to toggle the CartPage */}
-            <Cart onClick={toggleCart} />
-          </section>
+
+          {/* "shouldHide" flag is used to hide the search, profile and cart icons.  */}
+          {shouldHide ? (
+            ""
+          ) : (
+            <section className="right">
+              <Search />
+              <Profile onClick={handleLogin} />
+              {/* onClick event to toggle the CartPage */}
+              <Cart onClick={toggleCart} />
+            </section>
+          )}
         </MainHeader>
       </Navbar>
       {/* Render CartPage based on isCartOpen state */}
@@ -55,16 +73,18 @@ export default function Header() {
           <CartPage toggle={toggleCart} />
         </CartPageContainer>
       )}
-    </>
+    </Container>
   );
 }
+
+const Container = styled.div``;
 
 const Navbar = styled.div`
   display: flex;
   height: fit-content;
   flex-direction: column;
-  position: sticky;
-  top: 0;
+  // position: sticky;
+  top: 18px;
   left: 0;
   right: 0;
   z-index: 100;
@@ -91,6 +111,7 @@ const MainHeader = styled.section`
   color: black;
   padding: 1rem;
   position: sticky;
+  top: 0;
   left: 0;
   right: 0;
   section.left {
