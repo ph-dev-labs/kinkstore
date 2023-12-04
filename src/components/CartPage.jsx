@@ -9,6 +9,7 @@ import {
 } from "../redux/Cart/Cart"; // Replace with your cart slice path
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import CloseIcon from "@mui/icons-material/Close";
+import { useNavigate } from "react-router-dom";
 
 const CartPage = ({ toggle }) => {
   const breakPoint = useMediaQuery({ query: "(max-width: 999px)" });
@@ -16,6 +17,7 @@ const CartPage = ({ toggle }) => {
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.cartItems);
   const cartTotal = useSelector((state) => state.cart.totalPrice);
+  const navigate = useNavigate()
 
   const handleUpdateQuantity = (itemId, quantity) => {
     dispatch(updateCartItemQuantity({ itemId, quantity }));
@@ -28,6 +30,10 @@ const CartPage = ({ toggle }) => {
   const handleClearCart = () => {
     dispatch(clearCart());
   };
+
+  const handleNavigate = () => {
+    navigate("/checkout")
+  }
 
   return (
     <Container>
@@ -49,9 +55,14 @@ const CartPage = ({ toggle }) => {
               <Section breakpoint={breakPoint}>
                 <CartIncreaseDecreaseWrapper>
                   <div
-                    onClick={() =>
-                      handleUpdateQuantity(item.id, item.quantity - 1)
+                  onClick={() => {
+                    if (item.quantity > 0) {
+                      handleUpdateQuantity(item.id, item.quantity - 1);
+                    } else {
+                      dispatch(removeItemFromCart(item.id));
                     }
+                  }}
+                  
                   >
                     -
                   </div>
@@ -71,7 +82,7 @@ const CartPage = ({ toggle }) => {
         ))}
       </Cart>
       <H2>{cartTotal}</H2>
-      <Button>checkout</Button>
+      <Button onClick={handleNavigate}>checkout</Button>
     </Container>
   );
 };

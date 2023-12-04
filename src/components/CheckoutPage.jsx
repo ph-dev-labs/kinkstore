@@ -1,8 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import Header from "./Header";
+import { useSelector } from "react-redux";
 
 function CheckoutPage() {
+  const cartItems = useSelector((state) => state.cart.cartItems);
+  const cartTotal = useSelector((state) => state.cart.totalPrice);
+
   return (
     <Container>
       <Header shouldHide={true} />
@@ -20,6 +24,7 @@ function CheckoutPage() {
             {" "}
             --Country/Region--{" "}
           </option>
+          <option defaultValue="">choose your country</option>
           <option value="">United States</option>
           <option value="">Bangladesh</option>
           <option value="">Canada</option>
@@ -62,21 +67,25 @@ function CheckoutPage() {
         <OrderSummary>
           <h4>Order Summary</h4>
           <OrderWrapper>
-            <ImgWrapper>
-              <img src="/images/K-3.png" alt="order product" />
-            </ImgWrapper>
-            <Caption>
-              <p>Core By Kink Arched Back Ass Hook to Collar Set</p>
-              <p>Black</p>
-            </Caption>
+            {cartItems.map((item) => (
+              <div key={item.id}>
+                <ImgWrapper>
+                  <img src={item.picture} alt={item.title} />
+                </ImgWrapper>
+                <Caption>
+                  <p>{item.title}</p>
+                </Caption>
+              </div>
+            ))}
           </OrderWrapper>
+
           <DiscountWrapper>
             <input type="number" placeholder="Security code" />
             <Button>Apply</Button>
           </DiscountWrapper>
           <OrderSection>
             <p>Subtotal</p>
-            <h5>$41.99</h5>
+            <h5>{cartTotal}</h5>
           </OrderSection>
           <OrderSection>
             <p>Shipping</p>
@@ -85,7 +94,7 @@ function CheckoutPage() {
           <OrderSection>
             <h5>Total</h5>
             <p>
-              USD <b>$41.99</b>
+              USD <b>{cartTotal}</b>
             </p>
           </OrderSection>
         </OrderSummary>
@@ -210,11 +219,12 @@ const OrderWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  margin-bottom: 1rem;
 `;
 
 const Caption = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 
   p {
     margin: 4px 0;

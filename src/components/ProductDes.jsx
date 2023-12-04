@@ -11,7 +11,7 @@ import { ToastContainer, toast } from "react-toastify";
 
 
 const ProductDes = () => {
-  const [quantity, setQuantity] = useState(0)
+  const [quantity, setQuantity] = useState(1)
   const breakPoint = useMediaQuery({ query: "(max-width: 999px)" });
   const { productId } = useParams();
   const dispatch = useDispatch();
