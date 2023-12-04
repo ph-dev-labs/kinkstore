@@ -82,12 +82,12 @@ const ProductDes = () => {
 
 const Container = styled.div`
   width: 100%;
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
+  margin-bottom: 2rem;
   h4 {
     text-align: start;
     margin-left: 2rem;
@@ -101,8 +101,8 @@ const Container = styled.div`
 const ImageContainer = styled.div`
   max-width: 350px;
   height: 350px;
-  align-self: flex-start;
-  margin-left: 2rem;
+  align-self: center ;
+ 
 `;
 
 const ProductImg = styled.img`
