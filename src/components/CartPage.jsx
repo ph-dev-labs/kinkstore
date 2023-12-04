@@ -15,6 +15,7 @@ const CartPage = ({ toggle }) => {
 
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.cartItems);
+  const cartTotal = useSelector((state) => state.cart.totalPrice);
 
   const handleUpdateQuantity = (itemId, quantity) => {
     dispatch(updateCartItemQuantity({ itemId, quantity }));
@@ -69,6 +70,7 @@ const CartPage = ({ toggle }) => {
           </CartItemWrapper>
         ))}
       </Cart>
+      <H2>{cartTotal}</H2>
       <Button>checkout</Button>
     </Container>
   );
@@ -172,8 +174,20 @@ const Button = styled.div`
   cursor: pointer;
   border-radius: 5px;
   margin: 1.5rem;
+  bottom: 0;
+  position: absolute;
+  margin-right: 7rem;
 `;
 
 const H4 = styled.h4`
 padding: 1rem;
 `
+
+
+const H2 = styled.h2`
+  padding: 1rem;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin-left: 1rem;
+`;
