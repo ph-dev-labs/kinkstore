@@ -63,7 +63,7 @@ const CartPage = ({ toggle }) => {
                     +
                   </div>
                 </CartIncreaseDecreaseWrapper>
-                <h4>{item.price}</h4>
+                <H4>{Math.ceil(item.price * item.quantity)}</H4>
               </Section>
             </CartInfo>
           </CartItemWrapper>
@@ -171,4 +171,9 @@ const Button = styled.div`
   margin: 0 auto;
   cursor: pointer;
   border-radius: 5px;
+  margin: 1.5rem;
 `;
+
+const H4 = styled.h4`
+padding: 1rem;
+`

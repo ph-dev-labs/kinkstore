@@ -1,33 +1,49 @@
-import React from "react";
+import React, {useState} from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import { useParams } from "react-router-dom";
 import { useGetProductDescQuery } from "../redux/api/api";
 import styled from "styled-components";
 import { useMediaQuery } from "react-responsive";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addItemToCart } from "../redux/Cart/Cart";
+import { ToastContainer, toast } from "react-toastify";
+
 
 const ProductDes = () => {
+  const [quantity, setQuantity] = useState(0)
   const breakPoint = useMediaQuery({ query: "(max-width: 999px)" });
   const { productId } = useParams();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const cartItem = useSelector((state) =>
+    state.cart.cartItems.find((item) => item.id === productId)
+  );
+
 
   const { data, isError, isLoading, isSuccess } =
     useGetProductDescQuery(productId);
-
-  
 
   if (isLoading) {
     return <h2>FETCHING DATA...</h2>;
   }
 
+  const incrementQuantity = () => {
+    const newQuantity = quantity + 1;
+    setQuantity(newQuantity);
+  };
+
+  const decrementQuantity = () => {
+    const newQuantity = Math.max(quantity - 1, 1);
+    setQuantity(newQuantity);
+  };
+
   const { picture, id, description, discount_price, price, title } = data;
 
   const handleAddToCart = () => {
     // Dispatch the addItemToCart action with the product data
-    dispatch(addItemToCart({ id, title, price, picture }));
-  }
+    toast.success("product has been added to cart");
+    dispatch(addItemToCart({ id, title, price, picture,quantity }));
+  };
 
   if (isError) {
     return <h2>Error Loading product details...</h2>;
@@ -35,28 +51,31 @@ const ProductDes = () => {
 
   return (
     <Container key={id}>
-      <Header/>
+      <Header />
       <ImageContainer>
         <ProductImg src={picture} />
       </ImageContainer>
       <h4>{title}</h4>
       <Divider />
       <BuySection>
-          <h4>Price: <span>${price}</span> </h4>
+        <h4>
+          Price: <span>${price}</span>{" "}
+        </h4>
         <Section>
           <h4>Quantity:</h4>
           <QuantityContainer>
-            <div> - </div>
-            <div> 12 </div>
-            <div> + </div>
+            <div onClick={decrementQuantity}> - </div>
+            <div>{quantity}</div>
+            <div onClick={incrementQuantity}> + </div>
           </QuantityContainer>
         </Section>
-        <Button onClick={handleAddToCart}>Add to cart</Button>
         <Description>
           <h4>Description</h4>
           <p>{description}</p>
         </Description>
+        <Button onClick={handleAddToCart}>Add to cart</Button>
       </BuySection>
+      <ToastContainer />
     </Container>
   );
 };
@@ -74,8 +93,8 @@ const Container = styled.div`
     margin-left: 2rem;
   }
 
-  div ~  h4{
-   align-self: flex-start;
+  div ~ h4 {
+    align-self: flex-start;
   }
 `;
 
@@ -108,7 +127,6 @@ const BuySection = styled.div`
     color: #d72029;
   }
 
-
   h4 {
     text-align: start;
     font-weight: bold;
@@ -125,8 +143,6 @@ const QuantityContainer = styled.div`
   display: flex;
   gap: 0;
   margin-left: 1rem;
-
-  
 
   div {
     border: 1px solid grey;
@@ -164,10 +180,7 @@ const Button = styled.div`
 `;
 
 const Description = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  justify-content: start;
+  padding-bottom: 2rem;
   p {
     text-align: start;
     margin-left: 2rem;
