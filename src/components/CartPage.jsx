@@ -81,7 +81,7 @@ const CartPage = ({ toggle }) => {
           </CartItemWrapper>
         ))}
       </Cart>
-      <Button onClick={handleNavigate}>checkout  ${cartTotal}</Button>
+      <Button onClick={handleNavigate}>checkout  ${cartTotal.toFixed(2)}</Button>
     </Container>
   );
 };
@@ -97,11 +97,14 @@ const Container = styled.div`
   justify-content: flex-start;
   align-items: center;
   max-width: 390px;
-  width: 100%;
-  height: 100%;
+  width: 90%;
+  height: auto;
+  max-height: 100vh; /* Set a maximum height */
+  overflow-y: auto; /* Enable vertical scrolling */
   border-radius: 4px;
-  margin: 30px 10px 0;
-  h4{
+  margin: 3px 10px 0;
+
+  h4 {
     color: #d72029;
   }
 `;
@@ -188,7 +191,7 @@ const Button = styled.div`
   margin-top: 3.5rem;
   margin-bottom: 1.5rem;
   bottom: 0;
-  position: absolute;
+
 `;
 
 const H4 = styled.h4`
