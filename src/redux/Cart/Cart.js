@@ -1,7 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
+const Cart_KEY = "CART_ITEM";
+
+const getStoredCartItems = () => {
+  const storedCartItems = localStorage.getItem("CART_ITEM");
+  return storedCartItems ? Object.values(JSON.parse(storedCartItems)) : [];
+};
 
 const initialState = {
-  cartItems: [],
+  cartItems: getStoredCartItems(),
   totalPrice: 0,
 };
 
@@ -25,7 +31,10 @@ const cartSlice = createSlice({
       }
 
       state.totalPrice = calculateTotalPrice(state.cartItems);
-      localStorage.setItem("CART_ITEM", initialState.cartItems)
+      localStorage.setItem(
+        Cart_KEY,
+        JSON.stringify({ cartItems: state.cartItems, totalPrice: state.totalPrice })
+      ); // Store cartItems in localStorage
     },
     updateCartItemQuantity(state, action) {
       const { itemId, quantity } = action.payload;
@@ -34,6 +43,10 @@ const cartSlice = createSlice({
       if (itemToUpdate) {
         itemToUpdate.quantity = quantity;
         state.totalPrice = calculateTotalPrice(state.cartItems);
+        localStorage.setItem(
+          Cart_KEY,
+          JSON.stringify({ cartItems: state.cartItems, totalPrice: state.totalPrice })
+        ); // Update cartItems in localStorage
       }
     },
     removeItemFromCart(state, action) {
@@ -42,10 +55,15 @@ const cartSlice = createSlice({
         (item) => item.id !== itemIdToRemove
       );
       state.totalPrice = calculateTotalPrice(state.cartItems);
+      localStorage.setItem(
+        Cart_KEY,
+        JSON.stringify({ cartItems: state.cartItems, totalPrice: state.totalPrice })
+      ); // Update cartItems in localStorage
     },
     clearCart(state) {
       state.cartItems = [];
       state.totalPrice = 0;
+      localStorage.removeItem("CART_ITEM"); // Clear cartItems from localStorage
     },
   },
 });

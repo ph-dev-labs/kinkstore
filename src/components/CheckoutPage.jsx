@@ -1,45 +1,72 @@
-import React from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
 import Header from "./Header";
 import { useSelector } from "react-redux";
 
 function CheckoutPage() {
+  const [formData, setFormData] = useState({
+    email: "",
+    country: "",
+    firstName: "",
+    lastName: "",
+    address: "",
+    city: "",
+    state: "",
+    zipCode: "",
+    cardNumber: "",
+    expirationDate: "",
+    securityCode: "",
+    cardName: "",
+    phone: ""
+
+  });
   const cartItems = useSelector((state) => state.cart.cartItems);
   const cartTotal = useSelector((state) => state.cart.totalPrice);
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    console.log(formData)
+  }
 
   return (
     <Container>
       <Header shouldHide={true} />
       <Form>
         <h4>Contact</h4>
-        <input type="text" placeholder="Email" />
+        <input type="text" placeholder="Email" onChange={handleInputChange} name="email" value={formData.email}/>
         <section>
           <input type="checkbox" />
           <p>Email me with news and offers</p>
         </section>
         <Divider />
         <h4>Delivery</h4>
-        <select name="country" id="" placeholder="country/region">
-          <option value="" disabled selected hidden>
+        <select name="country" id="" placeholder="country/region" value={formData.country} onChange={handleInputChange}>
+          <option defaultValue="" disabled selected hidden>
             {" "}
             --Country/Region--{" "}
           </option>
-          <option defaultValue="">choose your country</option>
-          <option value="">United States</option>
-          <option value="">Bangladesh</option>
-          <option value="">Canada</option>
-          <option value="">United Kingdom</option>
-          <option value="">Germany</option>
-          <option value="">Algeria</option>
+          <option value="United States">United States</option>
+          <option value="Bangladesh">Bangladesh</option>
+          <option value="Canada">Canada</option>
+          <option value="United Kingdom">United Kingdom</option>
+          <option value="Germany">Germany</option>
+          <option value="Algeria">Algeria</option>
         </select>
-        <input type="text" placeholder="First name" />
-        <input type="text" placeholder="Last name" />
-        <input type="text" placeholder="Address" />
+        <input type="text" placeholder="First name" name="firstName" value={formData.firstName} onChange={handleInputChange} />
+        <input type="text" placeholder="Last name" name="lastName" value={formData.lastName} onChange={handleInputChange}/>
+        <input type="text" placeholder="Address" onChange={handleInputChange} value={formData.address} name="address" />
         {/* <p class="apartment">+ Add apartment, suite, etc.</p> */}
-        <input type="text" placeholder="City" />
-        <input type="text" placeholder="State" />
-        <input type="text" placeholder="Zip code" />
-        <input type="text" placeholder="Phone (optional)" />
+        <input type="text" placeholder="City" name="city" value={formData.city} onChange={handleInputChange} />
+        <input type="text" placeholder="State" name="state" value={formData.state} onChange={handleInputChange} />
+        <input type="text" placeholder="Zip code" name="zipCode" value={formData.zipCode} onChange={handleInputChange} />
+        <input type="text" placeholder="Phone (optional)" name="phone" value={formData.phone} onChange={handleInputChange} />
         <section>
           <input type="checkbox" />
           <p>Save this information for next time</p>
@@ -54,10 +81,10 @@ function CheckoutPage() {
           <CreditHeader>
             <p>Credit card</p>
           </CreditHeader>
-          <input type="text" placeholder="Card number" />
-          <input type="text" placeholder="Expiration date ( MM / YY)" />
-          <input type="number" placeholder="Security code" />
-          <input type="text" placeholder="Name on card" />
+          <input type="text" placeholder="Card number" value={formData.cardNumber} name="cardNumber" onChange={handleInputChange} />
+          <input type="text" placeholder="Expiration date ( MM / YY)" onChange={handleInputChange} value={formData.expirationDate} name="expirationDate"/>
+          <input type="number" placeholder="Security code" onChange={handleInputChange} value={formData.securityCode} name="securityCode" />
+          <input type="text" placeholder="Name on card" onChange={handleInputChange} value={formData.cardName} name="cardName" />
           <section>
             <input type="checkbox" />
             <p>Use shipping address as billing address</p>
@@ -98,7 +125,7 @@ function CheckoutPage() {
             </p>
           </OrderSection>
         </OrderSummary>
-        <PayButton>Pay now</PayButton>
+        <PayButton onClick={handleSubmit}>Pay now</PayButton>
       </Form>
     </Container>
   );

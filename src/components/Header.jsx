@@ -8,21 +8,20 @@ import { useGetCategoryQuery } from "../redux/api/api";
 import MenuOptions from "./MenuOptions";
 import CloseIcon from "@mui/icons-material/Close";
 import CartPage from "./CartPage";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export default function Header({ shouldHide }) {
   const navigate = useNavigate();
   const [isCartOpen, setIsCartOpen] = useState(false); // State to manage cart visibility
   const data = useGetCategoryQuery();
   const [isMenuClicked, setMenuClicked] = useState(false);
+  const cartItems = useSelector((state) => state.cart.cartItems)
 
   function handleLogin() {
     navigate("/login");
   }
 
-  const handleNavigate = () => {
-    navigate("/")
-  }
 
   function handleMenuToggle() {
     setMenuClicked(!isMenuClicked);
@@ -68,7 +67,11 @@ export default function Header({ shouldHide }) {
               <Search />
               <Profile onClick={handleLogin} />
               {/* onClick event to toggle the CartPage */}
-              <Cart onClick={toggleCart} />
+              <Row>
+                <Cart onClick={toggleCart} />
+                <Quantity>{cartItems.length}</Quantity>
+              </Row>
+              
             </section>
           )}
         </MainHeader>
@@ -134,7 +137,6 @@ const MainHeader = styled.section`
     display: flex;
     color: inherit;
     justify-content: space-between;
-    width: 30%;
     align-items: center;
   }
 `;
@@ -175,4 +177,27 @@ const Close = styled(CloseIcon)`
   margin-right: 0.5rem;
   font-size: 2rem;
   cursor: pointer;
+`;
+
+const Quantity = styled.div `
+border-radius: 50%;
+display: flex;
+flex-direction: row;
+align-items: center;
+justify-content: center;
+background-color: red;
+height: 1.5rem;
+width:1.5rem;
+text-align: center;
+color: white;
+font-size: .7rem;
+transform: translateY(-1.1rem);
+margin-left: .7rem;
+position: absolute;
+
+`;
+
+const Row = styled.div `
+display: flex;
+flex-direction: row;
 `;
