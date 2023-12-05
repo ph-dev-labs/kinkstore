@@ -6,50 +6,72 @@ import Header from "./Header";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useRegisterMutation } from "../redux/api/api";
+import {
+  setEmailField,
+  setFirstnameField,
+  setLastNameField,
+} from "../redux/Registration/Registration";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function RegisterPage() {
-  const [firstname, setFirstname] = useState("");
-  const [lastname, setLastname] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [userData, setUserData] = useState({
+    firstname: "",
+    lastname: "",
+    email: "",
+    password: "",
+  });
+  const dispatch = useDispatch();
   const [register] = useRegisterMutation();
+  const navigate = useNavigate()
 
-  function handleFirstname(e) {
-    setFirstname(e.target.value);
-  }
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setUserData({ ...userData, [name]: value });
+  };
 
-  function handleLastname(e) {
-    setLastname(e.target.value);
-  }
-
-  function handleEmail(e) {
-    setEmail(e.target.value);
-  }
-
-  function handlePassword(e) {
-    setPassword(e.target.value);
-  }
+  const validateEmail = (email) => {
+    // Basic email format validation using regular expression
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
 
   const handleRegistration = async () => {
-    const userData = { firstname, lastname, email, password };
+    const { firstname, lastname, email, password } = userData;
+    if (!firstname || !lastname || !email || !password) {
+      toast.error("All fields are required.");
+      return;
+    }
+
+    if (!validateEmail(email)) {
+      toast.error("Invalid email format.");
+      return;
+    }
+
     try {
-      let response = await register(userData).unwrap();
-      if (response.status === "Ok") {
+      const response = await register(userData).unwrap();
+      if (response) {
         toast.success("Registration successful!");
-        // Handle redirection or any other action upon successful registration
-      } else {
-        toast.error("Registration failed.");
-      }
+        setTimeout(() => {
+           navigate("/verification")
+
+        }, 2000)
+       
+        // Redirect or perform actions after successful registration
+      } 
     } catch (error) {
+      console.error(error)
       toast.error("Registration failed.");
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    handleRegistration();
+    await handleRegistration();
+    dispatch(setEmailField(userData.email));
+    dispatch(setFirstnameField(userData.firstname));
+    dispatch(setLastNameField(userData.lastname));
   };
-
   return (
     <Container>
       <Header />
@@ -59,22 +81,33 @@ function RegisterPage() {
       <Form onSubmit={handleSubmit}>
         <input
           placeholder="First name"
-          onChange={handleFirstname}
-          value={firstname}
+          onChange={handleInputChange}
+          value={userData.firstname}
+          name="firstname"
         />
         <input
           placeholder="Last name"
-          onChange={handleLastname}
-          value={lastname}
+          onChange={handleInputChange}
+          value={userData.lastname}
+          name="lastname"
         />
-        <input placeholder="Email" onChange={handleEmail} value={email} type="email" />
+        <input
+          placeholder="Email"
+          onChange={handleInputChange}
+          value={userData.email}
+          type="email"
+          name="email"
+        />
         <input
           placeholder="Password"
           type="password"
-          onChange={handlePassword}
-          value={password}
+          onChange={handleInputChange}
+          value={userData.password}
+          name="password"
         />
-        <LoginButton type="submit" onClick={handleSubmit}>Register</LoginButton>
+        <LoginButton type="submit" onClick={handleSubmit}>
+          Register
+        </LoginButton>
       </Form>
       <p>
         Already have an account? <Link to="/login">Login here</Link>

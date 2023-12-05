@@ -15,16 +15,16 @@ const registrationSlice = createSlice({
   name: "registration",
   initialState,
   reducers: {
-    setEmail: (state, action) => {
+    setEmailField: (state, action) => {
       state.email = action.payload;
     },
     setPassword: (state, action) => {
       state.password = action.payload;
     },
-    setLastName: (state, action) => {
+    setLastNameField: (state, action) => {
       state.lastname = action.payload;
     },
-    setFirstname: (state, action) => {
+    setFirstnameField: (state, action) => {
       state.firstname = action.payload;
     },
     setError: (state, action) => {
@@ -38,10 +38,10 @@ const registrationSlice = createSlice({
 });
 
 export const {
-  setEmail,
+  setEmailField,
   setPassword,
-  setFirstname,
-  setLastName,
+  setFirstnameField,
+  setLastNameField,
   setError,
   setLoading,
 } = registrationSlice.actions;

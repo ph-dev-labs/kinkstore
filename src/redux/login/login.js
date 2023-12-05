@@ -5,8 +5,7 @@ const initialState = {
   user: null,
   token: null,
   error: null,
-  userType: null,
-  isVerified: null
+  role: null,
 };
 
 const loginSlice = createSlice({
@@ -14,12 +13,14 @@ const loginSlice = createSlice({
   initialState,
   reducers: {
     loginSuccess: (state, action) => {
-      const { userEmail, token,userType, emailVerified } = action.payload;
-      state.user = userEmail;
+      const { email, token, role } = action.payload;
+      state.user = email;
       state.token = token;
       state.error = null;
-      state.userType = userType;
-      state.isVerified = emailVerified;
+      state.role = role;
+
+      localStorage.setItem(Auth_KEY, token)
+      
     },
     loginFailure: (state, action) => {
       state.error = action.payload;
@@ -28,8 +29,7 @@ const loginSlice = createSlice({
       state.user = null;
       state.token = null;
       state.error = null;
-      state.isVerified = null;
-      state.userType = null
+      state.role = null;
       localStorage.removeItem( Auth_KEY).catch((error) => {
         console.error("Error clearing token from LocalStorage:", error);
       });
@@ -43,13 +43,5 @@ export const selectToken = (state) => state.login.token;
 
 export default loginSlice.reducer;
 
-const handleTokenStorage = async (token) => {
-  try {
-    await localStorage.setItem(Auth_KEY, token);
-  } catch (error) {
-    console.error("Error storing token in AsyncStorage:", error);
-    throw new Error("Token storage failed");
-  }
-};
 
 

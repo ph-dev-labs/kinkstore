@@ -91,4 +91,5 @@ export const {
   useGetProductBestSellingQuery,
   useGetCategoriesProductQuery,
   useGetProductDescQuery,
+  useConfirmOtpMutation
 } = kinkApi;

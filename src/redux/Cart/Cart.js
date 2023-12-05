@@ -25,6 +25,7 @@ const cartSlice = createSlice({
       }
 
       state.totalPrice = calculateTotalPrice(state.cartItems);
+      localStorage.setItem("CART_ITEM", initialState.cartItems)
     },
     updateCartItemQuantity(state, action) {
       const { itemId, quantity } = action.payload;

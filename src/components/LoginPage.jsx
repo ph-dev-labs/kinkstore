@@ -7,14 +7,15 @@ import "react-toastify/dist/ReactToastify.css";
 import Header from "./Header";
 import { useUserLoginMutation } from "../redux/api/api";
 import { useDispatch } from "react-redux";
-import { moveToShopPage } from "../redux/login/login";
 import { loginSuccess, loginFailure } from "../redux/login/login";
+import { useNavigate } from "react-router-dom";
 
 function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loginApi] = useUserLoginMutation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   function handleEmail(e) {
     setUsername(e.target.value);
@@ -27,16 +28,19 @@ function LoginPage() {
   const handleLogin = async () => {
     try {
       const response = await loginApi({ username, password }).unwrap();
-      if (response.status === "success") {
+      if (response) {
         toast.success("Login successful!");
-        dispatch(loginSuccess(response))
+        dispatch(loginSuccess(response));
+        setTimeout(() => {
+          navigate("/");
+        }, 2000);
       } else {
         toast.error("Login failed. Please check your credentials.");
-        dispatch(loginFailure())
+        dispatch(loginFailure());
       }
     } catch (error) {
       toast.error("Login failed. Please try again later.");
-      dispatch(loginFailure(error))
+      dispatch(loginFailure(error));
     }
   };
 
@@ -59,7 +63,9 @@ function LoginPage() {
           onChange={handlePassword}
           value={password}
         />
-        <LoginButton onClick={handleSubmit} type="submit">Login</LoginButton>
+        <LoginButton onClick={handleSubmit} type="submit">
+          Login
+        </LoginButton>
       </Form>
       <p>
         New Customer? <Link to="/register">Create your account</Link>
@@ -72,7 +78,6 @@ function LoginPage() {
     </Container>
   );
 }
-
 
 const Container = styled.div`
   display: flex;
