@@ -1,36 +1,62 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Header from "./Header";
-import { useDispatch } from "react-redux";
-import { loginSuccess, loginFailure } from "../redux/login/login";
+import { useSelector } from "react-redux";
+import { useResetPasswordOtpMutation } from "../redux/api/api";
+import { useNavigate } from "react-router-dom";
 
 function ResetPassword() {
-  const [password, setPassword] = useState("");
+  const [new_password, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const dispatch = useDispatch();
+  const [otp, setOtp] = useState("");
+  const [changePasswordApi] = useResetPasswordOtpMutation();
+  const email = useSelector((state) => state.resetpassword.email);
+  const navigate = useNavigate()
 
   function handlePassword(e) {
-    setPassword(e.target.value);
+    setNewPassword(e.target.value);
+  }
+
+  function handleOtp(e) {
+    setOtp(e.target.value);
   }
 
   function handleConfirmPassword(e) {
     setConfirmPassword(e.target.value);
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!password || !confirmPassword) {
+
+    if (otp.length !== 4) {
+      toast.error("Enter a valid OTP");
+      return;
+    }
+
+    if (!new_password || !confirmPassword) {
       toast.error("Please fill in both password fields");
-    } else if (password !== confirmPassword) {
+      return;
+    }
+
+    if (new_password !== confirmPassword) {
       toast.error("Passwords do not match");
-    } else {
-      // Passwords are valid, proceed with your login logic here
-      // For example, dispatch an action to handle successful login
-      dispatch(loginSuccess());
-      // Or perform the API call for login
+      return;
+    }
+
+    try {
+      const response = await changePasswordApi({ email, otp, new_password: new_password }).unwrap();
+      if (response.status == "success") {
+        toast.success("Password successfully changed");
+        setTimeout(() => {
+          navigate("/login");
+        }, 2000);
+      } else {
+        toast.error(response.message);
+      }
+    } catch (error) {
+      toast.error("Something went wrong", error);
     }
   };
 
@@ -42,10 +68,16 @@ function ResetPassword() {
 
       <Form onSubmit={handleSubmit}>
         <input
+          placeholder="Enter otp"
+          type="text"
+          onChange={handleOtp}
+          value={otp}
+        />
+        <input
           placeholder="Password"
           type="password"
           onChange={handlePassword}
-          value={password}
+          value={new_password}
         />
         <input
           placeholder="Confirm Password"
@@ -53,7 +85,9 @@ function ResetPassword() {
           onChange={handleConfirmPassword}
           value={confirmPassword}
         />
-        <LoginButton onClick={handleSubmit} type="submit">Reset password</LoginButton>
+        <LoginButton onClick={handleSubmit} type="submit">
+          Reset password
+        </LoginButton>
       </Form>
       <ToastContainer />
     </Container>
@@ -63,7 +97,6 @@ function ResetPassword() {
 // Styled components...
 
 export default ResetPassword;
-
 
 const Container = styled.div`
   display: flex;
@@ -108,8 +141,6 @@ const Form = styled.form`
     height: 48px;
     padding: 5px 10px;
     outline: none;
-    margin: .6rem;
+    margin: 0.6rem;
   }
 `;
-
-

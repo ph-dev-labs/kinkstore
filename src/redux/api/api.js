@@ -36,18 +36,19 @@ export const kinkApi = createApi({
         body: email,
       }),
     }),
-    resetPassword: builder.mutation({
-      query: ({ email, newPassword }) => ({
-        url: "/reset-password",
-        method: "POST",
-        body: { email, newPassword },
+    resetPasswordOtp: builder.mutation({
+      query: ({email, otp, new_password }) => ({
+        
+        url: "/resset-password",
+        method: "PATCH",
+        body: {email, new_password, otp },
       }),
     }),
-    resetPasswordOtp: builder.mutation({
-      query: ({ email, otp }) => ({
-        url: "/confirm-otp",
+    resetPasswordEmail: builder.mutation({
+      query: ({ email }) => ({
+        url: "/resset-password",
         method: "POST",
-        body: { email, otp },
+        body: { email },
       }),
     }),
     getCategory: builder.query({
@@ -85,6 +86,8 @@ export const kinkApi = createApi({
 
 export const {
   useRegisterMutation,
+  useResetPasswordOtpMutation,
+  useResetPasswordEmailMutation,
   useUserLoginMutation,
   useGetCategoryQuery,
   useGetProductByCollectionQuery,

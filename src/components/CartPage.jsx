@@ -81,8 +81,7 @@ const CartPage = ({ toggle }) => {
           </CartItemWrapper>
         ))}
       </Cart>
-      <H2>{cartTotal}</H2>
-      <Button onClick={handleNavigate}>checkout</Button>
+      <Button onClick={handleNavigate}>checkout  ${cartTotal}</Button>
     </Container>
   );
 };
@@ -95,10 +94,11 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   padding: 15px 0;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   max-width: 390px;
   width: 100%;
+  height: 100%;
   border-radius: 4px;
   margin: 30px 10px 0;
   h4{
@@ -136,7 +136,8 @@ const CartItemWrapper = styled.div`
 `;
 
 const CartItem = styled.img`
-  width: 40%;
+  width: 30%;
+  height: 7rem;
  ;
 `;
 
@@ -184,10 +185,10 @@ const Button = styled.div`
   margin: 0 auto;
   cursor: pointer;
   border-radius: 5px;
-  margin: 1.5rem;
+  margin-top: 3.5rem;
+  margin-bottom: 1.5rem;
   bottom: 0;
   position: absolute;
-  margin-right: 7rem;
 `;
 
 const H4 = styled.h4`

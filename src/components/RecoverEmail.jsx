@@ -5,16 +5,22 @@ import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Header from "./Header";
-import { useUserLoginMutation } from "../redux/api/api";
+import { useResetPasswordEmailMutation } from "../redux/api/api";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { moveToShopPage } from "../redux/login/login";
-import { loginSuccess, loginFailure } from "../redux/login/login";
+import { setEmailField } from "../redux/resetPassword";
 
 function RecoveryPage() {
   const [email, setEmail] = useState("");
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
   
-  const [loginApi] = useUserLoginMutation();
-  const dispatch = useDispatch();
+  const [recoverEmailApi] = useResetPasswordEmailMutation();
+  const validateEmail = (email) => {
+    // Basic email format validation using regular expression
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
 
   function handleEmail(e) {
     setEmail(e.target.value);
@@ -24,19 +30,37 @@ function RecoveryPage() {
 
  
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    if(!validateEmail(email)) {
+      return toast.error("Enter a valid email")
+    }
+
+    dispatch(setEmailField(email))
+    try {
+      const response = await recoverEmailApi({email}).unwrap()
+      if(response){
+        toast.success("Otp successfully sent")
+        setTimeout(() => {
+          navigate("/resetpassword")
+        },2000)
+      } 
+    } catch (error) {
+      toast.error("something went wrong", error)
+    }
+
+
   };
 
   return (
     <Container>
       <Header />
       <h1>Recover Password</h1>
-      <p>Enter your e-mail and password</p>
+      <p>Enter your e-mail</p>
 
       <Form onSubmit={handleSubmit}>
         <input placeholder="email" onChange={handleEmail} value={email} />
-        <LoginButton type="submit">Recover</LoginButton>
+        <LoginButton type="submit" onClick={handleSubmit}>Recover</LoginButton>
       </Form>
       <p>
         Remember password? <Link to="/login">back to login</Link>
