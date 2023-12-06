@@ -81,6 +81,12 @@ export const kinkApi = createApi({
         method: "GET",
       }),
     }),
+    getProduct: builder.query({
+      query: () => ({
+        url: "/products",
+        method: "GET",
+      }),
+    }),
   }),
 });
 
@@ -94,5 +100,6 @@ export const {
   useGetProductBestSellingQuery,
   useGetCategoriesProductQuery,
   useGetProductDescQuery,
-  useConfirmOtpMutation
+  useConfirmOtpMutation,
+  useGetProductQuery
 } = kinkApi;

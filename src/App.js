@@ -9,7 +9,7 @@ import RecoveryPage from './components/RecoverEmail.jsx';
 import ResetPassword from './components/ResetPassword.jsx';
 import CheckoutPage from './components/CheckoutPage.jsx';
 import Verification from './components/Verification.jsx';
-
+import ProductPage from './components/ProductPage.jsx';
 
 function App() {
   return (
@@ -24,6 +24,7 @@ function App() {
         <Route path='resetpassword' element={<ResetPassword />} />
         <Route path='checkout' element={<CheckoutPage />} />
         <Route path='verification' element={<Verification />} />
+        <Route path='productpage' element={<ProductPage />} />
       </Routes>
     </div>
   );

@@ -7,12 +7,20 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useGetCategoryQuery } from "../redux/api/api";
 import CreateList from "./CreateList";
+import { useNavigate } from "react-router-dom";
 
 function MenuOptions({ toggle }) {
   const [isExpandCategory, setIsExpandCategory] = useState(false);
   const [isExpandProduct, setIsExpandProduct] = useState(false);
 
   const { data, isLoading, isError } = useGetCategoryQuery();
+  const navigate = useNavigate()
+
+  const handleNavigation = () => {
+    navigate("/productpage")
+  }
+
+
 
   function handleIsExpandCategory() {
     setIsExpandCategory(!isExpandCategory);
@@ -29,7 +37,7 @@ function MenuOptions({ toggle }) {
       </CloseContainer>
       <MenuItemsContainer>
         <section className="categories">
-          <li>
+          <li onClick={handleIsExpandCategory}>
             Categories
             {!isError && data && isExpandCategory && <CreateList data={data} />}
           </li>
@@ -41,7 +49,7 @@ function MenuOptions({ toggle }) {
             )}
           </div>
         </section>
-        <section className="products">
+        <section className="products" onClick={handleNavigation}>
           <li>Products</li>
           <div>
             {isExpandProduct ? (

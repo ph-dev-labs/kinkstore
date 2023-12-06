@@ -30,9 +30,7 @@ const loginSlice = createSlice({
       state.token = null;
       state.error = null;
       state.role = null;
-      localStorage.removeItem( Auth_KEY).catch((error) => {
-        console.error("Error clearing token from LocalStorage:", error);
-      });
+      localStorage.removeItem( Auth_KEY)
     },
   },
 });

@@ -1,13 +1,20 @@
 import React from "react";
 import FlexBetween from "./FlexBetween";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 function BestSelling() {
+  const navigate = useNavigate()
+
+  const handleNavigation = () => {
+    navigate("/productpage")
+  }
+
   return (
     <Container>
       <FlexBetween>
         <p>Best Sellling Products</p>
-        <ViewAll >View all</ViewAll>
+        <ViewAll onClick={handleNavigation}>View all</ViewAll>
       </FlexBetween>
     </Container>
   );

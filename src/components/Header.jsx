@@ -9,7 +9,9 @@ import MenuOptions from "./MenuOptions";
 import CloseIcon from "@mui/icons-material/Close";
 import CartPage from "./CartPage";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../redux/login/login";
+
 
 export default function Header({ shouldHide }) {
   const navigate = useNavigate();
@@ -17,14 +19,23 @@ export default function Header({ shouldHide }) {
   const data = useGetCategoryQuery();
   const [isMenuClicked, setMenuClicked] = useState(false);
   const cartItems = useSelector((state) => state.cart.cartItems)
+  const user = useSelector((state) => state.login.user)
+  const dispatch = useDispatch()
 
   function handleLogin() {
     navigate("/login");
   }
 
 
+
+
   function handleMenuToggle() {
     setMenuClicked(!isMenuClicked);
+  }
+
+
+  const handleLogout = () => {
+    dispatch(logout())
   }
 
   // Function to toggle cart visibility
@@ -65,7 +76,7 @@ export default function Header({ shouldHide }) {
           ) : (
             <section className="right">
               <Search />
-              <Profile onClick={handleLogin} />
+             {user ? <H4 onClick={handleLogout}>logout</H4> : <Profile onClick={handleLogin} /> }
               {/* onClick event to toggle the CartPage */}
               <Row>
                 <Cart onClick={toggleCart} />
@@ -119,7 +130,7 @@ const MainHeader = styled.section`
   justify-content: space-between;
   align-items: center;
   color: black;
-  padding: 1rem;
+  padding: .1rem;
   position: sticky;
   top: 0;
   left: 0;
@@ -138,6 +149,7 @@ const MainHeader = styled.section`
     color: inherit;
     justify-content: space-between;
     align-items: center;
+    width: 37%;
   }
 `;
 
@@ -168,6 +180,7 @@ const Search = styled(SearchIcon)`
 `;
 const Profile = styled(PersonOutlineIcon)`
   cursor: pointer;
+  margin: 2rem;
 `;
 const Cart = styled(ShoppingCartOutlinedIcon)`
   cursor: pointer;
@@ -201,3 +214,9 @@ const Row = styled.div `
 display: flex;
 flex-direction: row;
 `;
+
+const H4 = styled.h3 `
+color: red;
+width: 3rem;
+padding: .7rem;
+`

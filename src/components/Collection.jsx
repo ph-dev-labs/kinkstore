@@ -6,11 +6,16 @@ import { useMediaQuery } from "react-responsive";
 import AliceCarousel from "react-alice-carousel";
 import "react-alice-carousel/lib/alice-carousel.css";
 import { useGetProductByCollectionQuery } from "../redux/api/api";
+import { useNavigate } from "react-router-dom";
 
 function Collection() {
 
   const {data, isLoading, isError} = useGetProductByCollectionQuery()
-  
+  const navigate = useNavigate()
+
+  const handleNavigation = () => {
+    navigate("/productpage")
+  }
 
   const items = data?.map((product) => {
     const {id, category, picture} = product
@@ -44,7 +49,7 @@ function Collection() {
     <Container>
       <FlexBetween>
         <p>Our collections</p>
-        <ViewAll>View all</ViewAll>
+        <ViewAll onClick={handleNavigation}>View all</ViewAll>
       </FlexBetween>
       <ProductGallery>
         <AliceCarousel items={items} {...options} />

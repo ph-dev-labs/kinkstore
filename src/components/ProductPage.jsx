@@ -1,18 +1,18 @@
 import React from 'react'
 import Footer from "./Footer.jsx";
 import Header from "./Header.jsx";
-import CategoriesProductItem from './CategoriesProductItem.jsx';
+import ProductPageItem from './ProductPageItem.jsx';
 import { useMediaQuery } from "react-responsive";
 
-const CategoryProduct = () => {
+const ProductPage = () => {
   const breakPoint = useMediaQuery({ query: "(max-width: 999px)" });
   return (
     <div>
         <Header />
-        <CategoriesProductItem/>
+        <ProductPageItem />
         <Footer/>
     </div>
   )
 }
 
-export default CategoryProduct
+export default ProductPage
