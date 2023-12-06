@@ -11,6 +11,8 @@ import CartPage from "./CartPage";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../redux/login/login";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 export default function Header({ shouldHide }) {
@@ -36,6 +38,7 @@ export default function Header({ shouldHide }) {
 
   const handleLogout = () => {
     dispatch(logout())
+    toast.success("Logout Successful")
   }
 
   // Function to toggle cart visibility
@@ -93,6 +96,7 @@ export default function Header({ shouldHide }) {
           <CartPage toggle={toggleCart} />
         </CartPageContainer>
       )}
+      <ToastContainer />
     </Container>
   );
 }
@@ -149,7 +153,8 @@ const MainHeader = styled.section`
     color: inherit;
     justify-content: space-between;
     align-items: center;
-    width: 37%;
+    width: 25%;
+    margin-right: 3rem;
   }
 `;
 
