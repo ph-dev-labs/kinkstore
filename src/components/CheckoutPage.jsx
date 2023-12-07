@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
 import Header from "./Header";
 import { useSelector } from "react-redux";
@@ -47,11 +47,11 @@ const [formData, setFormData] = useState({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-  
     setFormData(prevFormData => ({
       ...prevFormData,
       cart: [...prevFormData.cart, ...cartItems],
     }));
+    console.log(JSON.stringify(formData))
   };
   
   return (

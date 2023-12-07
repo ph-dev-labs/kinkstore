@@ -5,7 +5,6 @@ const CART_KEY = "CART_ITEM";
 const getStoredCartItems = () => {
   try {
     const storedCartItems = localStorage.getItem(CART_KEY);
-    console.log( storedCartItems ? Object.values(JSON.parse(storedCartItems)) : [])
     return storedCartItems ? Object.values(JSON.parse(storedCartItems)) : [];
   } catch (error) {
     console.error("Error getting cart items from localStorage:", error);

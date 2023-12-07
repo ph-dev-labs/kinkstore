@@ -154,7 +154,7 @@ const MainHeader = styled.section`
     justify-content: space-between;
     align-items: center;
     width: 25%;
-    margin-right: 3rem;
+    margin-right: 4rem;
   }
 `;
 
