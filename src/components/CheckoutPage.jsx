@@ -132,7 +132,7 @@ function CheckoutPage() {
           onChange={handleInputChange}
           required
         >
-          <option defaultValue="" disabled selected hidden>
+          <option defaultValue="">
             {" "}
             --Country/Region--{" "}
           </option>
