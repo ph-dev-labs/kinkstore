@@ -21,7 +21,7 @@ export default function Header({ shouldHide }) {
   const data = useGetCategoryQuery();
   const [isMenuClicked, setMenuClicked] = useState(false);
   const cartItems = useSelector((state) => state.cart.cartItems)
-  const user = useSelector((state) => state.login.user)
+  const token = useSelector((state) => state.login.token)
   const dispatch = useDispatch()
 
   function handleLogin() {
@@ -79,7 +79,7 @@ export default function Header({ shouldHide }) {
           ) : (
             <section className="right">
               <Search />
-             {user ? <H4 onClick={handleLogout}>logout</H4> : <Profile onClick={handleLogin} /> }
+             {token ? <H4 onClick={handleLogout}>logout</H4> : <Profile onClick={handleLogin} /> }
               {/* onClick event to toggle the CartPage */}
               <Row>
                 <Cart onClick={toggleCart} />
