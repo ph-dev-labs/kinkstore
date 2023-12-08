@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Header from "./Header";
 import { useSelector } from "react-redux";
@@ -49,10 +49,7 @@ function CheckoutPage() {
     }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    // Extracting id and quantity from each cartItem
+  useEffect(() => {
     const updatedCart = cartItems.map((item) => ({
       id: item.id,
       quantity: item.quantity,
@@ -69,7 +66,14 @@ function CheckoutPage() {
         amount: parseInt(cartTotal), // Using cartTotal from Redux state
       },
     }));
-    // Check if any field is empty
+
+  }, [cartItems])
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Extracting id and quantity from each cartItem
+        // Check if any field is empty
 
     if (
       formData.user.email === "" ||
@@ -83,7 +87,7 @@ function CheckoutPage() {
       formData.address.address === "" ||
       formData.address.city === "" ||
       formData.address.state === "" ||
-      formData.address.zipCode === "" || formData.cart == null
+      formData.address.zipCode === ""
     ) {
       toast.error("Please fill in all fields");
       return;
@@ -118,10 +122,6 @@ function CheckoutPage() {
           value={formData.user.email}
           required
         />
-        <section>
-          <input type="checkbox" />
-          <p>Email me with news and offers</p>
-        </section>
         <Divider />
         <h4>Delivery</h4>
         <select
@@ -192,10 +192,7 @@ function CheckoutPage() {
           onChange={handleInputChange}
           required
         />
-        <section>
-          <input type="checkbox" />
-          <p>Save this information for next time</p>
-        </section>
+ |
         {/* <h5>Shipping method</h5> */}
         <Divider />
         <PaymentSection>
@@ -239,10 +236,6 @@ function CheckoutPage() {
             name="payment.cardName"
             required
           />
-          <section>
-            <input type="checkbox" />
-            <p>Use shipping address as billing address</p>
-          </section>
         </PaymentBody>
         <Divider />
         <OrderSummary>
