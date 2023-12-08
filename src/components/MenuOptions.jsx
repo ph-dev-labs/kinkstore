@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import CloseIcon from "@mui/icons-material/Close";
 import { useState } from "react";
-import Header from "./Header";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useGetCategoryQuery } from "../redux/api/api";

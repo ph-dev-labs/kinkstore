@@ -2,7 +2,15 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: "https://adultbdsmstore.citimal.com/api",
+  prepareHeaders: (headers,) => {
+    const authToken = localStorage.getItem("Auth_token"); // Retrieve the token from local storage
+    if (authToken) {
+      headers.set("Authorization",  `Token ${authToken}`);
+    }
+    return headers;
+  },
 });
+
 
 export const kinkApi = createApi({
   baseQuery,
@@ -87,10 +95,19 @@ export const kinkApi = createApi({
         method: "GET",
       }),
     }),
+    payment: builder.mutation({
+      query: (formData) => ({
+        url: "/ordered",
+        method: "POST",
+        body: formData
+
+      })
+    })
   }),
 });
 
 export const {
+  usePaymentMutation,
   useRegisterMutation,
   useResetPasswordOtpMutation,
   useResetPasswordEmailMutation,

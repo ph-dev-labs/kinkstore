@@ -27,7 +27,7 @@ const Container = styled.div`
   color: #677279;
   ul li {
     list-style-type: circle;
-    text-transform: capitalize;
+    text-transform: uppercase;
   }
 
   a {
