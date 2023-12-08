@@ -6,8 +6,10 @@ import { usePaymentMutation } from "../redux/api/api";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { TailSpin } from "react-loader-spinner";
 
 function CheckoutPage() {
+  const [isLoading, setIsLoading] = useState(false)
   const [formData, setFormData] = useState({
     user: {
       email: "",
@@ -93,21 +95,33 @@ function CheckoutPage() {
       return;
     }
     try {
+      setIsLoading(true);
       const response = await paymentApi(formData);
       if (response.data) {
-        toast.error(
-          "Payment details failed, please contact support for more information"
-        );
+       setTimeout(() => {
+         toast.error('Payment details failed, please contact support for more information');
+       }, 5000)
       } else if (response.error.status === 401) {
-        toast.error("Login to access this feature");
+        toast.error('Login to access this feature');
         setTimeout(() => {
-          navigate("/login");
+          navigate('/login');
         }, 2500);
       }
     } catch (error) {
-      toast.error("Something went wrong")
+      toast.error('Something went wrong');
+    } finally {
+      setIsLoading(false);
     }
+  
   };
+
+  if(isLoading) {
+    return (
+      <Container>
+        <TailSpin color="red" radius={'3rem'} /> {/* Display the loader */}
+      </Container>
+    );
+  }
 
   return (
     <Container>
