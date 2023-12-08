@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Header from "./Header";
 import { useSelector } from "react-redux";
@@ -8,40 +8,39 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function CheckoutPage() {
-const [formData, setFormData] = useState({
-  user: {
-    email: "",
-    full_name: "",
-    phone: ""
-  },
-  cart: {
-    prodData: []
-  },
-  payment: {
-    cardNumber: "",
-    expirationDate: "",
-    securityCode: "",
-    cardName: "",
-    amount: ""
-  },
-  address: {
-    country: "",
-    address: "",
-    city: "",
-    state: "",
-    zipCode: ""
-  }
-});
-;
+  const [formData, setFormData] = useState({
+    user: {
+      email: "",
+      full_name: "",
+      phone: "",
+    },
+    cart: {
+      prodData: [],
+    },
+    payment: {
+      cardNumber: "",
+      expirationDate: "",
+      securityCode: "",
+      cardName: "",
+      amount: "",
+    },
+    address: {
+      country: "",
+      address: "",
+      city: "",
+      state: "",
+      zipCode: "",
+    },
+  });
   const cartItems = useSelector((state) => state.cart.cartItems);
   const cartTotal = useSelector((state) => state.cart.totalPrice);
-  const [paymentApi] = usePaymentMutation()
-  const navigate = useNavigate()
+  const [paymentApi] = usePaymentMutation();
+  const navigate = useNavigate();
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    const [parent, child] = name.split('.'); // Splitting the name by '.' to access nested properties
-    
-    setFormData(prevFormData => ({
+    const [parent, child] = name.split("."); // Splitting the name by '.' to access nested properties
+
+    setFormData((prevFormData) => ({
       ...prevFormData,
       [parent]: {
         ...prevFormData[parent],
@@ -50,68 +49,87 @@ const [formData, setFormData] = useState({
     }));
   };
 
-  
-  
-
-  const handleSubmit = async (e)  => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     // Extracting id and quantity from each cartItem
-    const updatedCart = cartItems.map(item => ({
+    const updatedCart = cartItems.map((item) => ({
       id: item.id,
-      quantity: item.quantity
+      quantity: item.quantity,
     }));
-  
-    setFormData(prevFormData => ({
+
+    setFormData((prevFormData) => ({
       ...prevFormData,
       cart: {
         ...prevFormData.cart,
-        prodData: [...prevFormData.cart.prodData, ...updatedCart] // Update prodData with id and quantity
+        prodData: [...prevFormData.cart.prodData, ...updatedCart], // Update prodData with id and quantity
       },
       payment: {
         ...prevFormData.payment,
-        amount:parseInt(cartTotal) // Using cartTotal from Redux state
-      }
+        amount: parseInt(cartTotal), // Using cartTotal from Redux state
+      },
     }));
     // Check if any field is empty
-  const isAnyFieldEmpty = Object.values(formData).some((field) => {
-    return Object.values(field).some((value) => value === "");
-  });
 
-  if (isAnyFieldEmpty) {
-    toast.error("Please fill in all fields");
-  }
-
-    try {
-      const response = await paymentApi(formData)
-      if(response.data) {
-        toast.error("Payment details failed, please contact support for more information")
-      } else if (response.error.status === 401) {
-        toast.error("Login to access this feature")
-        setTimeout(() => {
-          navigate("/login")
-        }, 2500)
-      }
-    } catch (error) {
-      
+    if (
+      formData.user.email === "" ||
+      formData.user.full_name === "" ||
+      formData.user.phone === "" ||
+      formData.payment.cardNumber === "" ||
+      formData.payment.expirationDate === "" ||
+      formData.payment.securityCode === "" ||
+      formData.payment.cardName === "" ||
+      formData.address.country === "" ||
+      formData.address.address === "" ||
+      formData.address.city === "" ||
+      formData.address.state === "" ||
+      formData.address.zipCode === "" || formData.cart == null
+    ) {
+      toast.error("Please fill in all fields");
+      return;
     }
+    try {
+      const response = await paymentApi(formData);
+      if (response.data) {
+        toast.error(
+          "Payment details failed, please contact support for more information"
+        );
+      } else if (response.error.status === 401) {
+        toast.error("Login to access this feature");
+        setTimeout(() => {
+          navigate("/login");
+        }, 2500);
+      }
+    } catch (error) {}
   };
-  
-
 
   return (
     <Container>
       <Header shouldHide={true} />
       <Form>
         <h4>Contact</h4>
-        <input type="email" placeholder="Email" onChange={handleInputChange} name="user.email" value={formData.user.email} required/>
+        <input
+          type="email"
+          placeholder="Email"
+          onChange={handleInputChange}
+          name="user.email"
+          value={formData.user.email}
+          required
+        />
         <section>
           <input type="checkbox" />
           <p>Email me with news and offers</p>
         </section>
         <Divider />
         <h4>Delivery</h4>
-        <select name="address.country" id="" placeholder="country/region" value={formData.address.country} onChange={handleInputChange} required>
+        <select
+          name="address.country"
+          id=""
+          placeholder="country/region"
+          value={formData.address.country}
+          onChange={handleInputChange}
+          required
+        >
           <option defaultValue="" disabled selected hidden>
             {" "}
             --Country/Region--{" "}
@@ -123,13 +141,55 @@ const [formData, setFormData] = useState({
           <option value="Germany">Germany</option>
           <option value="Algeria">Algeria</option>
         </select>
-        <input type="text" placeholder="Full name" name="user.full_name" value={formData.user.full_name} onChange={handleInputChange} required />
-        <input type="text" placeholder="Address" onChange={handleInputChange} value={formData.address.address} name="address.address" required />
+        <input
+          type="text"
+          placeholder="Full name"
+          name="user.full_name"
+          value={formData.user.full_name}
+          onChange={handleInputChange}
+          required
+        />
+        <input
+          type="text"
+          placeholder="Address"
+          onChange={handleInputChange}
+          value={formData.address.address}
+          name="address.address"
+          required
+        />
         {/* <p class="apartment">+ Add apartment, suite, etc.</p> */}
-        <input type="text" placeholder="City" name="address.city" value={formData.address.city} onChange={handleInputChange} required/>
-        <input type="text" placeholder="State" name="address.state" value={formData.address.state} onChange={handleInputChange} required/>
-        <input type="text" placeholder="Zip code" name="address.zipCode" value={formData.address.zipCode} onChange={handleInputChange} required/>
-        <input type="text" placeholder="Phone (optional)" name="user.phone" value={formData.user.phone} onChange={handleInputChange} required/>
+        <input
+          type="text"
+          placeholder="City"
+          name="address.city"
+          value={formData.address.city}
+          onChange={handleInputChange}
+          required
+        />
+        <input
+          type="text"
+          placeholder="State"
+          name="address.state"
+          value={formData.address.state}
+          onChange={handleInputChange}
+          required
+        />
+        <input
+          type="text"
+          placeholder="Zip code"
+          name="address.zipCode"
+          value={formData.address.zipCode}
+          onChange={handleInputChange}
+          required
+        />
+        <input
+          type="text"
+          placeholder="Phone (optional)"
+          name="user.phone"
+          value={formData.user.phone}
+          onChange={handleInputChange}
+          required
+        />
         <section>
           <input type="checkbox" />
           <p>Save this information for next time</p>
@@ -144,10 +204,39 @@ const [formData, setFormData] = useState({
           <CreditHeader>
             <p>Credit card</p>
           </CreditHeader>
-          <input type="number" placeholder="Card number" value={formData.payment.cardNumber} name="payment.cardNumber" onChange={handleInputChange} required  />
-          <input type="number" placeholder="Expiration date ( MM / YY)" onChange={handleInputChange} value={formData.payment.expirationDate} name="payment.expirationDate" required/>
-          <input type="number" placeholder="Security code" onChange={handleInputChange} value={formData.payment.securityCode} name="payment.securityCode" t required/>
-          <input type="text" placeholder="Name on card" onChange={handleInputChange} value={formData.payment.cardName} name="payment.cardName" required/>
+          <input
+            type="number"
+            placeholder="Card number"
+            value={formData.payment.cardNumber}
+            name="payment.cardNumber"
+            onChange={handleInputChange}
+            required
+          />
+          <input
+            type="date"
+            placeholder="Expiration date ( MM / YY)"
+            onChange={handleInputChange}
+            value={formData.payment.expirationDate}
+            name="payment.expirationDate"
+            required
+          />
+          <input
+            type="number"
+            placeholder="Security code"
+            onChange={handleInputChange}
+            value={formData.payment.securityCode}
+            name="payment.securityCode"
+            t
+            required
+          />
+          <input
+            type="text"
+            placeholder="Name on card"
+            onChange={handleInputChange}
+            value={formData.payment.cardName}
+            name="payment.cardName"
+            required
+          />
           <section>
             <input type="checkbox" />
             <p>Use shipping address as billing address</p>
