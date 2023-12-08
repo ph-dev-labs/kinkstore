@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Header from "./Header";
 import { useSelector } from "react-redux";
@@ -100,7 +100,9 @@ function CheckoutPage() {
           navigate("/login");
         }, 2500);
       }
-    } catch (error) {}
+    } catch (error) {
+      toast.error("Something went wrong")
+    }
   };
 
   return (
