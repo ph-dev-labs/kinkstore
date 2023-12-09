@@ -153,7 +153,7 @@ const MainHeader = styled.section`
     justify-content: space-between;
     align-items: center;
     margin-right: 4rem;
-    width: 30%;
+    transform: translateX(4rem);
   }
 `;
 
