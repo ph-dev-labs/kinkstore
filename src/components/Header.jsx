@@ -79,6 +79,7 @@ export default function Header({ shouldHide }) {
             ""
           ) : (
             <section className="right">
+              <Search /> 
               <Profile onClick={handleLogin} /> 
               {/* onClick event to toggle the CartPage */}
               <Row>
