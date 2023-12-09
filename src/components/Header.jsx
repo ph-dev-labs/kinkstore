@@ -153,7 +153,7 @@ const MainHeader = styled.section`
     justify-content: space-between;
     align-items: center;
     margin-right: 4rem;
-    width: 30%;
+    transform: translateX(.7rem);
   }
 `;
 
@@ -198,7 +198,7 @@ const Close = styled(CloseIcon)`
 
 const Logout = styled(LoginOutlinedIcon)`
 cursor: pointer;
-transform: translateX(1rem);
+transform: translateX(.7rem);
 `;
 
 const Quantity = styled.div `

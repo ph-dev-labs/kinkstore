@@ -25,9 +25,6 @@ const Container = styled.div`
   align-items: center;
   width: 100%;
   background: #f3f5f6;
-  bottom: 0;
-  position: absolute;
-  margin-left: 3rem;
 
 
   p {

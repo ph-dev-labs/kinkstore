@@ -77,6 +77,7 @@ const PayButton = styled.button`
   outline: none;
   border-radius: 4px;
   font-weight: bold;
+  margin-bottom: 1.5rem;
 `;
 const OrderCard = styled.div`
   /* Your styles for an individual order card */
