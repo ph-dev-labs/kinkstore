@@ -1,16 +1,16 @@
-import React from 'react';
-import Header from './Header';
-import Footer from './Footer';
-import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
-import { useGetAllOrderQuery } from '../redux/api/api';
+import React from "react";
+import Header from "./Header";
+import Footer from "./Footer";
+import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+import { useGetAllOrderQuery } from "../redux/api/api";
 
 const OrderPage = () => {
   const { data } = useGetAllOrderQuery();
   const navigate = useNavigate();
 
   const handleNavigation = () => {
-    navigate('/productpage');
+    navigate("/productpage");
   };
 
   return (
@@ -21,23 +21,34 @@ const OrderPage = () => {
           {data.map((order, index) => (
             <OrderCard key={index}>
               <h3>Order #{index + 1}</h3>
-              <p>Item: {order.item}</p>
-              <p>Quantity: {order.quantity}</p>
-              <img src={order.picture} alt="Ordered Item" />
+              <p>Full Name: {order.full_name}</p>
+              <p>Phone: {order.phone}</p>
+              <p>Ordered Date: {order.ordered_date}</p>
+              <ItemsList>
+                {order.cart.map((item, itemIndex) => (
+                  <ItemCard key={itemIndex}>
+                    <p>Item: {item.item}</p>
+                    <p>Quantity: {item.quantity}</p>
+                    <img src={item.picture} alt={`Item ${itemIndex + 1}`} />
+                    {/* Add more item details here if needed */}
+                  </ItemCard>
+                ))}
+              </ItemsList>
             </OrderCard>
           ))}
         </OrdersContainer>
       ) : (
         <NoOrdersContainer>
           <h4>No orders yet</h4>
-          <PayButton onClick={handleNavigation}>Make your first Order</PayButton>
+          <PayButton onClick={handleNavigation}>
+            Make your first Order
+          </PayButton>
         </NoOrdersContainer>
       )}
       <Footer />
     </Container>
   );
 };
-
 
 export default OrderPage;
 
@@ -61,7 +72,11 @@ const Container = styled.div`
 `;
 
 const OrdersContainer = styled.div`
-  /* Styles for displaying orders if data is available */
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ align-self: center;
+ transform: translateX(3rem)
 `;
 
 const NoOrdersContainer = styled.div`
@@ -81,4 +96,28 @@ const PayButton = styled.button`
 `;
 const OrderCard = styled.div`
   /* Your styles for an individual order card */
+`;
+
+const ItemsList = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  /* Add any other styles for the list */
+`;
+
+const ItemCard = styled.div`
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 8px;
+  width: 200px;
+  /* Add styles for individual item cards */
+  p {
+    margin: 5px 0;
+    color: #d72029
+  }
+  img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+  }
 `;

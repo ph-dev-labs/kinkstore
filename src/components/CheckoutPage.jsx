@@ -226,7 +226,7 @@ function CheckoutPage() {
             required
           />
           <input
-            type="text"
+            type="number"
             placeholder="Expiration date ( MM / YY)"
             onChange={handleInputChange}
             value={formData.payment.expirationDate}
