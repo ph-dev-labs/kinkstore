@@ -102,6 +102,12 @@ export const kinkApi = createApi({
         body: formData
 
       })
+    }),
+    getAllOrder: builder.query({
+      query: () => ({
+        url: "/all-order-summary",
+        method: "GET",  
+      })
     })
   }),
 });
@@ -118,5 +124,6 @@ export const {
   useGetCategoriesProductQuery,
   useGetProductDescQuery,
   useConfirmOtpMutation,
-  useGetProductQuery
+  useGetProductQuery,
+  useGetAllOrderQuery
 } = kinkApi;
