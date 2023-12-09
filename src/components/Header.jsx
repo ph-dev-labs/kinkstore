@@ -198,7 +198,7 @@ const Close = styled(CloseIcon)`
 
 const Logout = styled(LoginOutlinedIcon)`
 cursor: pointer;
-transform: translateX(-1rem);
+transform: translateX(.7rem);
 `;
 
 const Quantity = styled.div `
