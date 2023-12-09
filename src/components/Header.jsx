@@ -13,7 +13,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../redux/login/login";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
 
 export default function Header({ shouldHide }) {
   const navigate = useNavigate();
@@ -25,7 +25,8 @@ export default function Header({ shouldHide }) {
   const dispatch = useDispatch()
 
   function handleLogin() {
-    navigate("/login");
+    const navigationSide = token ? "/orderpage" : "/login"
+    navigate(navigationSide);
   }
 
 
@@ -78,14 +79,13 @@ export default function Header({ shouldHide }) {
             ""
           ) : (
             <section className="right">
-              <Search />
-             {token ? <H4 onClick={handleLogout}>logout</H4> : <Profile onClick={handleLogin} /> }
+              <Profile onClick={handleLogin} /> 
               {/* onClick event to toggle the CartPage */}
               <Row>
                 <Cart onClick={toggleCart} />
                 <Quantity>{cartItems.length}</Quantity>
               </Row>
-              
+           { token ?  <Logout onClick={handleLogout} />  : "" }
             </section>
           )}
         </MainHeader>
@@ -144,8 +144,6 @@ const MainHeader = styled.section`
     color: inherit;
     justify-content: baseline;
     align-items: center;
-    gap: 2rem;
-    width: 30%;
   }
 
   section.right {
@@ -153,8 +151,8 @@ const MainHeader = styled.section`
     color: inherit;
     justify-content: space-between;
     align-items: center;
-    width: 25%;
     margin-right: 4rem;
+    width: 30%;
   }
 `;
 
@@ -195,6 +193,11 @@ const Close = styled(CloseIcon)`
   margin-right: 0.5rem;
   font-size: 2rem;
   cursor: pointer;
+`;
+
+const Logout = styled(LoginOutlinedIcon)`
+cursor: pointer;
+transform: translateX(1rem);
 `;
 
 const Quantity = styled.div `

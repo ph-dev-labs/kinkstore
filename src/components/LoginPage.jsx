@@ -32,7 +32,7 @@ function LoginPage() {
         toast.success("Login successful!");
         dispatch(loginSuccess(response));
         setTimeout(() => {
-          navigate("/");
+          navigate("/orderpage");
         }, 2000);
       } else {
         toast.error("Login failed. Please check your credentials.");

@@ -10,7 +10,7 @@ import ResetPassword from './components/ResetPassword.jsx';
 import CheckoutPage from './components/CheckoutPage.jsx';
 import Verification from './components/Verification.jsx';
 import ProductPage from './components/ProductPage.jsx';
-
+import OrderPage from './components/OrderPage.jsx';
 function App() {
   return (
     <div className="App">
@@ -25,6 +25,7 @@ function App() {
         <Route path='checkout' element={<CheckoutPage />} />
         <Route path='verification' element={<Verification />} />
         <Route path='productpage' element={<ProductPage />} />
+        <Route path='orderpage' element={<OrderPage />} />
       </Routes>
     </div>
   );

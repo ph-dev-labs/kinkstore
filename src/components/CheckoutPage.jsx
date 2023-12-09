@@ -226,7 +226,7 @@ function CheckoutPage() {
             required
           />
           <input
-            type="date"
+            type="text"
             placeholder="Expiration date ( MM / YY)"
             onChange={handleInputChange}
             value={formData.payment.expirationDate}
@@ -268,7 +268,7 @@ function CheckoutPage() {
           </OrderWrapper>
 
           <DiscountWrapper>
-            <input type="number" placeholder="Security code" />
+            <input type="number" placeholder="Discount code or gift card" />
             <Button>Apply</Button>
           </DiscountWrapper>
           <OrderSection>
