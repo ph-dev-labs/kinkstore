@@ -319,9 +319,7 @@ const Container = styled.div`
   justify-content: center;
   min-height: 100vh;
   border: 1px solid rgba(0, 0, 0, 0.2);
-  // width: fit-content;
   width: 100%;
-  padding: 10px 50px;
   margin: 0 auto;
   border-radius: 7px;
 `;
@@ -329,11 +327,12 @@ const Container = styled.div`
 const Form = styled.form`
   display: flex;
   flex-direction: ${({breakPoint})=> breakPoint ? "column": "row"};
+  justify-content: center;
   align-items: center;
   width: ${({breakPoint})=> breakPoint ? "50%": "70%"};
-  min-width: 375px;
+  min-width: 60%;
   gap: ${({breakPoint})=> breakPoint ? "": "90px"};;
-
+  margin: 0 auto;
   p.apartment {
     width: 100%;
     text-align: start;
