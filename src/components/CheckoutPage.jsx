@@ -101,7 +101,9 @@ function CheckoutPage() {
       },
       payment: {
         ...prevFormData.payment,
-        amount: parseInt(cartTotal), // Using cartTotal from Redux state
+        amount: parseInt(cartTotal),
+        expirationDate: expiry, 
+ // Using cartTotal from Redux state
       },
     }));
   }, [cartItems]);
