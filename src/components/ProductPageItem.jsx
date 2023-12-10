@@ -6,7 +6,7 @@ import { useGetProductQuery } from "../redux/api/api";
 
 function ProductPageItem() {
   const { data, isLoading, isError, refetch } = useGetProductQuery();
-  const breakPoint = useMediaQuery({ query: "(max-width: 999px)" });
+  const breakPoint = useMediaQuery({ query: "(max-width: 769px)" });
 
   // State for pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -55,6 +55,7 @@ function ProductPageItem() {
 }
 
 const Container = styled.div`
+  max-width: ${(props) => (props.breakPoint ? "49%" : "24%")};
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
