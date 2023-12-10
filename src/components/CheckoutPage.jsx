@@ -9,6 +9,39 @@ import "react-toastify/dist/ReactToastify.css";
 import { TailSpin } from "react-loader-spinner";
 import { useMediaQuery } from "react-responsive";
 
+const ExpiryInput = () => {
+  const [expiry, setExpiry] = useState("");
+
+  const handleExpiryChange = (event) => {
+    let input = event.target.value;
+
+    // Ensure the input only contains digits
+    input = input.replace(/\D/g, "");
+
+    // Format the input as MM/YY
+    if (input.length > 2) {
+      input = input.slice(0, 2) + "/" + input.slice(2);
+    }
+
+    // Update state with the formatted input
+    setExpiry(input);
+  };
+
+  return (
+    <>
+      <input
+        type="text"
+        id="expiry"
+        name="expiry"
+        placeholder="MM/YY"
+        value={expiry}
+        maxLength={5} // Limits the input to 5 characters (MM/YY)
+        onChange={handleExpiryChange}
+      />
+    </>
+  );
+};
+
 function CheckoutPage() {
   const breakPoint = useMediaQuery({ query: "(max-width: 999px)" });
 
@@ -225,13 +258,14 @@ function CheckoutPage() {
               onChange={handleInputChange}
               required
             />
-            <input
-              type="number"
-              placeholder="Expiration date ( MM / YY)"
-              onChange={handleInputChange}
-              value={formData.payment.expirationDate}
-              name="payment.expirationDate"
-              required
+            <ExpiryInput
+              style={{
+                width: "100%",
+                height: "48px",
+                padding: "0 10px",
+                outline: "none",
+                marginBottom: "10px",
+              }}
             />
             <input
               type="number"
