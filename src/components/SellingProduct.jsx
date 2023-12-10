@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 
 function SellingProducts({id, src, title, price }) {
-  const breakPoint = useMediaQuery({ query: "(max-width: 999px)" });
+  const breakPoint = useMediaQuery({ query: "(max-width: 769px)" });
   
   const navigate = useNavigate()
 

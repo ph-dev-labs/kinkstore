@@ -9,7 +9,10 @@ import "react-toastify/dist/ReactToastify.css";
 import { TailSpin } from "react-loader-spinner";
 import { useMediaQuery } from "react-responsive";
 
-const ExpiryInput = () => {
+
+
+function CheckoutPage() {
+
   const [expiry, setExpiry] = useState("");
 
   const handleExpiryChange = (event) => {
@@ -27,22 +30,6 @@ const ExpiryInput = () => {
     setExpiry(input);
   };
 
-  return (
-    <>
-      <input
-        type="text"
-        id="expiry"
-        name="expiry"
-        placeholder="MM/YY"
-        value={expiry}
-        maxLength={5} // Limits the input to 5 characters (MM/YY)
-        onChange={handleExpiryChange}
-      />
-    </>
-  );
-};
-
-function CheckoutPage() {
   const breakPoint = useMediaQuery({ query: "(max-width: 999px)" });
 
   const [isLoading, setIsLoading] = useState(false);
@@ -86,6 +73,8 @@ function CheckoutPage() {
       },
     }));
   };
+
+  console.log(formData)
 
   useEffect(() => {
     const updatedCart = cartItems.map((item) => ({
@@ -260,7 +249,7 @@ function CheckoutPage() {
               onChange={handleInputChange}
               required
             />
-            <ExpiryInput
+            <ExpiryInput handleExpiry={handleExpiryChange} expiry={expiry}
               style={{
                 width: "100%",
                 height: "48px",
@@ -332,6 +321,23 @@ function CheckoutPage() {
     </Container>
   );
 }
+
+const ExpiryInput = ({handleExpiry,expiry}) => {
+ 
+  return (
+    <>
+      <input
+        type="text"
+        id="expiry"
+        name="expiry"
+        placeholder="MM/YY"
+        value={expiry}
+        maxLength={5} // Limits the input to 5 characters (MM/YY)
+        onChange={handleExpiry}
+      />
+    </>
+  );
+};
 
 const CheckoutContainer = styled.div`
   display: flex;
