@@ -326,12 +326,12 @@ const Container = styled.div`
 
 const Form = styled.form`
   display: flex;
-  flex-direction: ${({breakPoint})=> breakPoint ? "column": "row"};
+  flex-direction: ${({ breakPoint }) => (breakPoint ? "column" : "row")};
   justify-content: center;
   align-items: center;
-  width: ${({breakPoint})=> breakPoint ? "50%": "70%"};
+  width: ${({ breakPoint }) => (breakPoint ? "50%" : "70%")};
   min-width: 60%;
-  gap: ${({breakPoint})=> breakPoint ? "": "90px"};;
+  gap: ${({ breakPoint }) => (breakPoint ? "" : "90px")};
   margin: 0 auto;
   p.apartment {
     width: 100%;

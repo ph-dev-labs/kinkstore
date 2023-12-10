@@ -56,15 +56,14 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   padding: 15px 0;
-  justify-content: flex-start;
+  min-height: 100vh;
+  justify-content: end;
   align-items: center;
-  max-width: 390px;
-  width: 90%;
+  width: 100%;
+  margin: 0 auto;
   height: auto;
-  max-height: 100vh;
   overflow-y: auto;
   border-radius: 4px;
-  margin: 3px 10px 0;
 
   h4 {
     color: #d72029;
@@ -75,8 +74,11 @@ const OrdersContainer = styled.div`
  display: flex;
  flex-direction: column;
  align-items: center;
+ justify-content: center;
  align-self: center;
- transform: translateX(3rem)
+//  transform: translateX(3rem)
+ width: 70%;
+ margin: 0 auto;
 `;
 
 const NoOrdersContainer = styled.div`

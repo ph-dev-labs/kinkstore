@@ -18,6 +18,7 @@ function Footer() {
 }
 
 const Container = styled.div`
+  padding: 5px 10px;
   display: flex;
   flex-direction: ${({ breakPoint }) =>
     breakPoint ? "column-reverse" : "row-reverse"};
