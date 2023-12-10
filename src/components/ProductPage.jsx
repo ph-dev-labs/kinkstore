@@ -5,7 +5,7 @@ import ProductPageItem from './ProductPageItem.jsx';
 import { useMediaQuery } from "react-responsive";
 
 const ProductPage = () => {
-  const breakPoint = useMediaQuery({ query: "(max-width: 769px)" });
+  const breakPoint = useMediaQuery({ query: "(max-width: 999px)" });
   return (
     <div>
         <Header />
