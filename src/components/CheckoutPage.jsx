@@ -207,7 +207,7 @@ function CheckoutPage() {
             onChange={handleInputChange}
             required
           />
-          |{/* <h5>Shipping method</h5> */}
+          {/* <h5>Shipping method</h5> */}
           <Divider />
           <PaymentSection>
             <h4>Payment</h4>
