@@ -10,7 +10,7 @@ function SellingProducts({id, src, title, price }) {
   const navigate = useNavigate()
 
   const handleNavigation = (id) => {
-    navigate(`/product/${id}`)
+    navigate(`/product/${id}`) 
   }
 
  

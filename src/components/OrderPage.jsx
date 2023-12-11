@@ -76,8 +76,8 @@ const OrdersContainer = styled.div`
  align-items: center;
  justify-content: center;
  align-self: center;
-//  transform: translateX(3rem)
- width: 70%;
+// transform: translateX(3rem)
+ width: 50%;
  margin: 0 auto;
 `;
 

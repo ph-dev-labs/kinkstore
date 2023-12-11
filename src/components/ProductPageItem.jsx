@@ -55,13 +55,12 @@ function ProductPageItem() {
 }
 
 const Container = styled.div`
-  max-width: ${(props) => (props.breakPoint ? "49%" : "24%")};
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  align-items: center;
-  flex-wrap: wrap;
-  margin: auto;
+display: flex;
+flex-direction: row;
+justify-content: space-evenly;
+align-items: center;
+flex-wrap: wrap;
+margin: auto;
 `;
 
 const Pagination = styled.div`

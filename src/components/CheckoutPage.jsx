@@ -8,6 +8,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { TailSpin } from "react-loader-spinner";
 import { useMediaQuery } from "react-responsive";
+import Footer from "./Footer";
 
 
 
@@ -81,7 +82,7 @@ function CheckoutPage() {
       id: item.id,
       quantity: item.quantity,
     }));
-
+  
     setFormData((prevFormData) => ({
       ...prevFormData,
       cart: {
@@ -91,15 +92,15 @@ function CheckoutPage() {
       payment: {
         ...prevFormData.payment,
         amount: parseInt(cartTotal),
-        expirationDate: expiry, 
- // Using cartTotal from Redux state
+        expirationDate: expiry, // Use the updated expiry here
       },
     }));
-  }, [cartItems]);
+  }, [cartItems, expiry]); // Include expiry as a dependency
+  ;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    console.log(formData)
     // Extracting id and quantity from each cartItem
     // Check if any field is empty
 
@@ -115,7 +116,7 @@ function CheckoutPage() {
       formData.address.address === "" ||
       formData.address.city === "" ||
       formData.address.state === "" ||
-      formData.address.zipCode === ""
+      formData.address.zipCode === "" || formData.cart
     ) {
       toast.error("Please fill in all fields");
       return;
@@ -144,15 +145,15 @@ function CheckoutPage() {
 
   if (isLoading) {
     return (
-      <Container>
+      <CheckoutContainer>
         <TailSpin color="red" radius={"3rem"} /> {/* Display the loader */}
-      </Container>
+      </CheckoutContainer>
     );
   }
 
   return (
     <Container>
-      <Header shouldHide={true} />
+      <Header  />
       <Form breakPoint={breakPoint}>
         <CheckoutContainer>
           <h4>Contact</h4>
@@ -318,6 +319,7 @@ function CheckoutPage() {
       </Form>
 
       <ToastContainer />
+      <Footer />
     </Container>
   );
 }
