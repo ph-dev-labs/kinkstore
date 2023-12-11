@@ -116,7 +116,7 @@ function CheckoutPage() {
       formData.address.address === "" ||
       formData.address.city === "" ||
       formData.address.state === "" ||
-      formData.address.zipCode === "" || formData.cart
+      formData.address.zipCode === ""
     ) {
       toast.error("Please fill in all fields");
       return;
