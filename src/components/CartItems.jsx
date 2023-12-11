@@ -22,7 +22,7 @@ const CartItems = ({ pictures, title, quantity, price }) => {
       <Details>
         <Info>
           <DeleteIcon />
-          <Price>{price}</Price>
+          <Price>{`$${price}`}</Price>
         </Info>
       </Details>
     </Container>

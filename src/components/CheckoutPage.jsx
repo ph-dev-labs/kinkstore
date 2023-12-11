@@ -261,7 +261,7 @@ function CheckoutPage() {
             />
             <input
               type="number"
-              placeholder="Security code"
+              placeholder="cvv"
               onChange={handleInputChange}
               value={formData.payment.securityCode}
               name="payment.securityCode"

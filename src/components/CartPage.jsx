@@ -75,7 +75,7 @@ const CartPage = ({ toggle }) => {
                     +
                   </div>
                 </CartIncreaseDecreaseWrapper>
-                <H4>{Math.ceil(item.price * item.quantity)}</H4>
+                <H4>${(item.price * item.quantity).toFixed(2)}</H4>
               </Section>
             </CartInfo>
           </CartItemWrapper>
