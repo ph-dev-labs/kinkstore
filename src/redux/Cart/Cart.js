@@ -4,20 +4,34 @@ const CART_KEY = "CART_ITEM";
 
 const getStoredCartItems = () => {
   try {
-    const storedCartItems = localStorage.getItem(CART_KEY);
-    return storedCartItems ? Object.values(JSON.parse(storedCartItems)) : [];
+    const storedCart = localStorage.getItem(CART_KEY);
+    if (storedCart) {
+      const parsedCart = JSON.parse(storedCart);
+      if (parsedCart.initialState && parsedCart.initialState.cartItems) {
+        return parsedCart.initialState.cartItems;
+      }
+    }
+    return [];
   } catch (error) {
     console.error("Error getting cart items from localStorage:", error);
     return [];
   }
 };
 
+
 const saveCartToLocalStorage = (cartItems, totalPrice) => {
   try {
-    localStorage.setItem(
-      CART_KEY,
-      JSON.stringify({ cartItems, totalPrice })
-    );
+    const storedCart = localStorage.getItem(CART_KEY);
+    const parsedCart = storedCart ? JSON.parse(storedCart) : {};
+
+    if (!parsedCart.initialState) {
+      parsedCart.initialState = { cartItems, totalPrice };
+    }
+
+    parsedCart.cartItems = cartItems;
+    parsedCart.totalPrice = totalPrice;
+
+    localStorage.setItem(CART_KEY, JSON.stringify(parsedCart));
   } catch (error) {
     console.error("Error saving cart items to localStorage:", error);
   }
@@ -79,6 +93,7 @@ export const {
   updateCartItemQuantity,
   removeItemFromCart,
   clearCart,
+  initializeCart
 } = cartSlice.actions;
 
 export default cartSlice.reducer;
