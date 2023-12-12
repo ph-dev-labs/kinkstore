@@ -44,18 +44,18 @@ const Text = styled.p `
 color: #677279;
 text-transform: uppercase;
 text-align: center;
+width:100%;
 
 `
 const Button = styled.div`
   background: #d72029;
   color: white;
-  width: 30%;
   height: 28px;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 4px;
-  padding: 5px 10px;
+  padding: 5px 8px;
   text-transform: uppercase;
   cursor: pointer;
 `;
