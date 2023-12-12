@@ -8,6 +8,7 @@ import { useMediaQuery } from "react-responsive";
 import { useDispatch, useSelector } from "react-redux";
 import { addItemToCart } from "../redux/Cart/Cart";
 import { ToastContainer, toast } from "react-toastify";
+import Loader from "./Loader";
 
 
 const ProductDes = () => {
@@ -24,7 +25,7 @@ const ProductDes = () => {
     useGetProductDescQuery(productId);
 
   if (isLoading) {
-    return <h2>FETCHING DATA...</h2>;
+    return <Loader />;
   }
 
   const incrementQuantity = () => {

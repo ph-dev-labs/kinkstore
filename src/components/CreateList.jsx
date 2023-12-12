@@ -9,11 +9,11 @@ function CreateList({ data }) {
     <Container>
       <ul>
         {data.map(({ id, choice }) => (
-          <li key={id}>
+          <p key={id}>
             <i>
               <Link to={`/category/${id}`}>{choice}</Link>
             </i>
-          </li>
+          </p>
         ))}
       </ul>
     </Container>
@@ -25,9 +25,13 @@ const Container = styled.div`
   flex-direction: column;
   align-items: start;
   color: #677279;
-  ul li {
-    list-style-type: circle;
-    text-transform: uppercase;
+  margin-bottom: 2rem;
+  height: 30%;
+  ul p {
+    color: inherit;
+    cursor: pointer;
+    padding-left: 0.5rem;
+    position: relative;
   }
 
   a {

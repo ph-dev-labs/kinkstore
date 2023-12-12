@@ -79,6 +79,8 @@ const Container = styled.div`
   z-index: 1000;
   padding: 0.5rem;
   color: #677279;
+  height: 100%;
+  overflow-y: auto;
 
   li {
     color: inherit;
@@ -134,6 +136,7 @@ const MenuItemsContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   border-bottom: 1px solid #677279;
+  overflow-y: auto;
 `;
 
 const Expand = styled(ChevronRightIcon)`

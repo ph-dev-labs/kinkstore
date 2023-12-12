@@ -5,7 +5,7 @@ function Brand() {
   return (
     <Container >
       <div>
-        <p>&copy; 2023 Kink Store</p>
+        <p>&copy; 2023 Adult bdsm Store</p>
         <p>Powered by Shopify</p>
       </div>
     </Container>

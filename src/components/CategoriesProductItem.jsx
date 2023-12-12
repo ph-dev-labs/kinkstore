@@ -4,6 +4,7 @@ import { useMediaQuery } from "react-responsive";
 import SellingProducts from "./SellingProduct";
 import { useGetCategoriesProductQuery } from "../redux/api/api";
 import { useParams } from "react-router-dom";
+import Loader from "./Loader";
 
 function CategoriesProductItem() {
   const { categoryId } = useParams();
@@ -33,6 +34,10 @@ function CategoriesProductItem() {
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
+
+  if(isLoading) {
+    return <Loader />
+  }
 
   return (
     <Container breakPoint={breakPoint}>

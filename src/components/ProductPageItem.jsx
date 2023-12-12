@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useMediaQuery } from "react-responsive";
 import SellingProducts from "./SellingProduct";
 import { useGetProductQuery } from "../redux/api/api";
+import Loader from "./Loader";
 
 function ProductPageItem() {
   const { data, isLoading, isError, refetch } = useGetProductQuery();
@@ -22,6 +23,10 @@ function ProductPageItem() {
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
+
+  if(isLoading) {
+    return <Loader />
+  }
 
   return (
     <Container breakPoint={breakPoint}>

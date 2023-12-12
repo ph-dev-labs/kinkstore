@@ -6,15 +6,22 @@ import { usePaymentMutation } from "../redux/api/api";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { TailSpin } from "react-loader-spinner";
 import { useMediaQuery } from "react-responsive";
 import Footer from "./Footer";
+import Modal from "./Modal";
+import Loader from "./Loader";
 
 
 
 function CheckoutPage() {
 
   const [expiry, setExpiry] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+ 
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
   const handleExpiryChange = (event) => {
     let input = event.target.value;
@@ -75,7 +82,6 @@ function CheckoutPage() {
     }));
   };
 
-  console.log(formData)
 
   useEffect(() => {
     const updatedCart = cartItems.map((item) => ({
@@ -125,11 +131,7 @@ function CheckoutPage() {
       setIsLoading(true);
       const response = await paymentApi(formData);
       if (response.data) {
-        setTimeout(() => {
-          toast.error(
-            "Payment details failed, please contact support for more information"
-          );
-        }, 5000);
+        setIsModalOpen(true)
       } else if (response.error.status === 401) {
         toast.error("Login to access this feature");
         setTimeout(() => {
@@ -145,15 +147,17 @@ function CheckoutPage() {
 
   if (isLoading) {
     return (
-      <LoaderContainer>
-        <TailSpin color="red" radius={"3rem"} /> {/* Display the loader */}
-      </LoaderContainer>
+      
+        <Loader /> 
     );
   }
 
   return (
     <Container>
       <Header  />
+      {isModalOpen && (
+        <Modal onClose={handleCloseModal} />
+      )}
       <Form breakPoint={breakPoint}>
         <CheckoutContainer>
           <h4>Contact</h4>
@@ -527,8 +531,8 @@ const Button = styled.button`
   text-align: center;
 `;
 const LoaderContainer = styled.div `
-height: 100%
-width: 100%
+height: 100%;
+width: 100%;
 display: flex;
 flex-direction: column;
 justify-content: center;
