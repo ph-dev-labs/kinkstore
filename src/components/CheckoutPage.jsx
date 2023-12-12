@@ -116,7 +116,7 @@ function CheckoutPage() {
       formData.address.address === "" ||
       formData.address.city === "" ||
       formData.address.state === "" ||
-      formData.address.zipCode === "" || formData.cart
+      formData.address.zipCode === ""
     ) {
       toast.error("Please fill in all fields");
       return;
@@ -145,9 +145,9 @@ function CheckoutPage() {
 
   if (isLoading) {
     return (
-      <CheckoutContainer>
+      <LoaderContainer>
         <TailSpin color="red" radius={"3rem"} /> {/* Display the loader */}
-      </CheckoutContainer>
+      </LoaderContainer>
     );
   }
 
@@ -526,5 +526,13 @@ const Button = styled.button`
   padding: 0px 10px;
   text-align: center;
 `;
+const LoaderContainer = styled.div `
+height: 100%
+width: 100%
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
 
+`
 export default CheckoutPage;
