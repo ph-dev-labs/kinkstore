@@ -78,7 +78,7 @@ const cartSlice = createSlice({
         (item) => item.id !== itemIdToRemove
       );
       state.totalPrice = calculateTotalPrice(state.cartItems);
-      saveCartToLocalStorage(state.cartItems, state.totalPrice);
+      saveCartToLocalStorage(state.cartItems, state.totalPrice); // Update localStorage here
     },
     clearCart(state) {
       state.cartItems = [];
