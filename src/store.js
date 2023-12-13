@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { kinkApi } from "./redux/api/api";
-import cartReducer, {initializeCart} from "./redux/Cart/Cart";
+import cartReducer from "./redux/Cart/Cart";
 import loginReducer from "./redux/login/login";
 import registrationReducer from "./redux/Registration/Registration";
 
@@ -18,4 +18,3 @@ export const store = configureStore({
 });
 
 
-store.dispatch(initializeCart());
