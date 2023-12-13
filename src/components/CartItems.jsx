@@ -59,7 +59,7 @@ const Image = styled.img`
 
 const Details = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: space-between !important;
   align-self: flex-start;
