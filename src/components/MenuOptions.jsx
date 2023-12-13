@@ -36,8 +36,9 @@ function MenuOptions({ toggle }) {
       </CloseContainer>
       <MenuItemsContainer>
         <section className="categories">
-          <li onClick={handleIsExpandCategory}>
-            Categories
+          <li >
+           <p onClick={handleIsExpandCategory}  
+> Categories </p>
             {!isError && data && isExpandCategory && <CreateList data={data} />}
           </li>
           <div>
