@@ -16,9 +16,9 @@ function ProductPageItem() {
   // Logic to calculate pagination
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = data?.results?.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = data?.slice(indexOfFirstItem, indexOfLastItem);
 
-  const totalPages = Math.ceil((data?.results?.length || 0) / itemsPerPage);
+  const totalPages = Math.ceil((data?.length || 0) / itemsPerPage);
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
