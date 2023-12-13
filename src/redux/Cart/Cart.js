@@ -7,8 +7,8 @@ const getStoredCartItems = () => {
     const storedCart = localStorage.getItem(CART_KEY);
     if (storedCart) {
       const parsedCart = JSON.parse(storedCart);
-      if (parsedCart.initialState && parsedCart.initialState.cartItems) {
-        return parsedCart.initialState.cartItems;
+      if (parsedCart.cartItems) {
+        return parsedCart.cartItems;
       }
     }
     return [];
@@ -18,31 +18,18 @@ const getStoredCartItems = () => {
   }
 };
 
-
 const saveCartToLocalStorage = (cartItems, totalPrice) => {
   try {
-    const storedCart = localStorage.getItem(CART_KEY);
-    const parsedCart = storedCart ? JSON.parse(storedCart) : {};
-
-    if (!parsedCart.initialState) {
-      parsedCart.initialState = { cartItems, totalPrice };
-    }
-
-    parsedCart.cartItems = cartItems;
-    parsedCart.totalPrice = totalPrice;
+    const parsedCart = {
+      cartItems,
+      totalPrice
+    };
 
     localStorage.setItem(CART_KEY, JSON.stringify(parsedCart));
   } catch (error) {
     console.error("Error saving cart items to localStorage:", error);
   }
 };
-
-
-  const totalPrice = calculateTotalPrice(storedCartItems); // Calculate total price
-
-  dispatch(cartSlice.actions.initializeCart({ cartItems: storedCartItems, totalPrice }));
-};
-
 
 const calculateTotalPrice = (cartItems) =>
   cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
@@ -58,10 +45,18 @@ const cartSlice = createSlice({
   reducers: {
     addItemToCart(state, action) {
       const newItem = action.payload;
-      const existingItem = state.cartItems.find((item) => item.id === newItem.id);
+      const existingItemIndex = state.cartItems.findIndex(
+        (item) => item.id === newItem.id
+      );
 
-      if (existingItem) {
-        existingItem.quantity += 1;
+      if (existingItemIndex !== -1) {
+        const updatedCartItems = [...state.cartItems];
+        updatedCartItems[existingItemIndex] = {
+          ...updatedCartItems[existingItemIndex],
+          quantity: updatedCartItems[existingItemIndex].quantity + 1,
+        };
+
+        state.cartItems = updatedCartItems;
       } else {
         state.cartItems.push({ ...newItem, quantity: 1 });
       }
@@ -71,10 +66,18 @@ const cartSlice = createSlice({
     },
     updateCartItemQuantity(state, action) {
       const { itemId, quantity } = action.payload;
-      const itemToUpdate = state.cartItems.find((item) => item.id === itemId);
+      const itemToUpdateIndex = state.cartItems.findIndex(
+        (item) => item.id === itemId
+      );
 
-      if (itemToUpdate) {
-        itemToUpdate.quantity = quantity;
+      if (itemToUpdateIndex !== -1) {
+        const updatedCartItems = [...state.cartItems];
+        updatedCartItems[itemToUpdateIndex] = {
+          ...updatedCartItems[itemToUpdateIndex],
+          quantity: quantity,
+        };
+
+        state.cartItems = updatedCartItems;
         state.totalPrice = calculateTotalPrice(state.cartItems);
         saveCartToLocalStorage(state.cartItems, state.totalPrice);
       }
@@ -84,15 +87,16 @@ const cartSlice = createSlice({
       state.cartItems = state.cartItems.filter(
         (item) => item.id !== itemIdToRemove
       );
+
       state.totalPrice = calculateTotalPrice(state.cartItems);
-      saveCartToLocalStorage(state.cartItems, state.totalPrice); // Update localStorage here
+      saveCartToLocalStorage(state.cartItems, state.totalPrice);
     },
     clearCart(state) {
       state.cartItems = [];
       state.totalPrice = 0;
       localStorage.removeItem(CART_KEY);
     },
-      
+  },
 });
 
 export const {
@@ -100,7 +104,6 @@ export const {
   updateCartItemQuantity,
   removeItemFromCart,
   clearCart,
-  
 } = cartSlice.actions;
 
 export default cartSlice.reducer;
