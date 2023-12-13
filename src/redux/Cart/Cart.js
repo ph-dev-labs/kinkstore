@@ -37,6 +37,14 @@ const saveCartToLocalStorage = (cartItems, totalPrice) => {
   }
 };
 
+export const initializeCart = () => (dispatch) => {
+  const storedCartItems = getStoredCartItems(); // Retrieve items from local storage
+  const totalPrice = calculateTotalPrice(storedCartItems); // Calculate total price
+
+  dispatch(cartSlice.actions.initializeCart({ cartItems: storedCartItems, totalPrice }));
+};
+
+
 const calculateTotalPrice = (cartItems) =>
   cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
 
@@ -84,6 +92,11 @@ const cartSlice = createSlice({
       state.cartItems = [];
       state.totalPrice = 0;
       localStorage.removeItem(CART_KEY);
+    },
+       initializeCart(state, action) {
+      const { cartItems, totalPrice } = action.payload;
+      state.cartItems = cartItems;
+      state.totalPrice = totalPrice;
     },
   },
 });
