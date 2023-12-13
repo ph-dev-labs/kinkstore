@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useGetCategoriesProductQuery } from "../redux/api/api";
 import { Link } from "react-router-dom";
 
-function CreateList({ data , toggle}) {
+function CreateList({ data , onClick}) {
 
   return (
     <Container>
@@ -11,7 +11,7 @@ function CreateList({ data , toggle}) {
         {data.map(({ id, choice }) => (
           <p key={id}>
             <i>
-              <Link onClick ={toggle} to={`/category/${id}`}>{choice}</Link>
+              <Link onClick ={onClick} to={`/category/${id}`}>{choice}</Link>
             </i>
           </p>
         ))}
