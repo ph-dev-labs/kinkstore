@@ -41,7 +41,7 @@ const CloseButton = styled.button`
   transform: translateY(-4rem);
 `;
 const Text = styled.p `
-color: #677279;
+color: red;
 text-transform: uppercase;
 text-align: center;
 width:100%;
