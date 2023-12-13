@@ -39,7 +39,7 @@ function MenuOptions({ toggle }) {
           <li >
            <p onClick={handleIsExpandCategory}  
 > Categories </p>
-            {!isError && data && isExpandCategory && <CreateList data={data} />}
+            {!isError && data && isExpandCategory && <CreateList data={data} onClick={toggle}  />}
           </li>
           <div>
             {data && isExpandCategory ? (
